@@ -26,12 +26,12 @@ import testSvg from '@/assets/svg/menu/test.svg'
 const isDev = process.env.NODE_ENV === 'development'
 export default [
   {
-    id: 'TM000',
+    id: 'SM000',
     path: '/apps/overview',
     component: Layout,
     meta: {
       icon: testSvg,
-      title: '租户概览',
+      title: '系统概览',
     },
     children: [
       {
@@ -40,58 +40,48 @@ export default [
         component: 'overview/index',
         meta: {
           icon: tenantViewSvg,
-          title: '租户概览',
+          title: '系统概览',
         },
       },
     ],
   },
   {
-    id: 'TM010',
-    path: '/bucket',
+    id: 'SM010',
+    path: '/framework',
     component: Layout,
     meta: {
       icon: spaceManagementSvg,
-      title: '空间管理',
+      title: '基础架构',
     },
     children: [
       {
-        id: 'TM011',
-        path: '/bucket/management',
-        name: 'Management',
-        component: 'bucket/management',
+        id: 'SM011',
+        path: '/framework/node',
+        name: 'FrameworkNode',
+        component: 'framework/node',
         meta: {
           icon: BucketListSvg,
-          title: '桶列表',
+          title: '节点列表',
         },
       },
       {
-        path: '/bucket/management',
+        id: 'SM012',
+        path: '/framework/ocean',
+        name: 'FrameworkOcean',
+        component: 'framework/ocean',
         meta: {
-          title: '桶列表',
-          name: 'Management',
+          icon: BucketListSvg,
+          title: '蓝光列表',
         },
-        children: [
-          {
-            path: '/bucket/managementDetail',
-            name: 'ManagementDetail',
-            meta: {
-              title: '桶详情',
-              activePath: '/bucket/management',
-              showLink: false,
-              showParent: true,
-            },
-            component: 'bucket/managementDetail',
-          },
-        ],
       },
       {
-        id: 'TM012',
-        path: '/bucket/objectexplorer',
-        name: 'Objectexplorer',
-        component: 'bucket/objectexplorer',
+        id: 'SM013',
+        path: '/framework/service',
+        name: 'FrameworkService',
+        component: 'framework/service',
         meta: {
-          icon: bucketViewSvg,
-          title: '桶浏览',
+          icon: BucketListSvg,
+          title: '服务列表',
         },
       },
     ],

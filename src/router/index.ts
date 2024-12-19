@@ -31,11 +31,9 @@ import { type DataInfo, userKey, removeToken, multipleTabsKey } from '@/utils/au
 const modules: Record<string, any> = import.meta.glob(['./modules/**/*.ts', '!./modules/**/remaining.ts'], {
   eager: true,
 })
-// const tenantRoutes = import.meta.glob(['./tenant-router.js'], { eager: true })
 
 /** 原始静态路由（未做任何处理） */
 const routes = []
-// routes.push(...tenantRoutes['./tenant-router.js'].default)
 
 Object.keys(modules).forEach((key) => {
   routes.push(modules[key].default)

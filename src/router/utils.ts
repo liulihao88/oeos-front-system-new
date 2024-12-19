@@ -19,7 +19,7 @@ import { usePermissionStoreHook } from '@/store/modules/permission'
 const IFrame = () => import('@/layout/frame.vue')
 // https://cn.vitejs.dev/guide/features.html#glob-import
 const modulesRoutes = import.meta.glob('/src/views/**/*.{vue,tsx}')
-import TenantRouter from '@/router/tenant-router.js'
+import SystemRouter from '@/router/system-router.js'
 import DynamicRouter from '@/router/dynamic-router.js'
 
 // 动态路由
@@ -172,7 +172,7 @@ function initRouter() {
             $toast('菜单为空, 请配置后重试', 'e')
             reject()
           }
-          let data = mergeMenus(TenantRouter, remoteData)
+          let data = mergeMenus(SystemRouter, remoteData)
           setStorage('system-async-routes', data)
           handleAsyncRoutes(clone(data))
           storageLocal().setItem(key, data)
@@ -188,7 +188,7 @@ function initRouter() {
           reject()
         }
         // remoteData = remoteData.slice(4)
-        let data = mergeMenus(TenantRouter, remoteData)
+        let data = mergeMenus(SystemRouter, remoteData)
         setStorage('system-async-routes', data)
         handleAsyncRoutes(clone(data))
         resolve(router)

@@ -387,7 +387,7 @@ function updatePage() {
     min-width: unset;
   }
 
-  .hide-btns-button {
+  .hide-btns-button:not(.is-disabled) {
     color: var(--blue);
     cursor: pointer;
   }
