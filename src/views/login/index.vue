@@ -25,7 +25,7 @@ const { proxy } = getCurrentInstance()
 defineOptions({
   name: 'Login',
 })
-const getTenantSysdomain = ref(proxy.getStorage('tenant-sysdomain')) ?? {}
+const getTenantSysdomain = ref(proxy.getStorage('system-sysdomain')) ?? {}
 const router = useRouter()
 const route = useRoute()
 const isLoading = ref(false)
@@ -42,7 +42,6 @@ initStorage()
 const rules = {
   username: [proxy.validate()],
   password: [proxy.validate()],
-  tenantId: [proxy.validate('请选择租户')],
 }
 
 const { dataTheme, overallStyle, dataThemeChange } = useDataThemeChange()
@@ -50,23 +49,10 @@ dataThemeChange(overallStyle.value)
 const { title } = useNav()
 
 const ruleForm = reactive({
-  username: getTenantSysdomain.value?.loginName ? getTenantSysdomain.value.loginName : proxy.$dev ? 'admin' : '',
-  tenantId: '',
+  username: proxy.$dev ? 'admin' : '',
   password: proxy.$dev ? 'adminadmin' : '',
 })
-async function init() {
-  let optionsRes = await getTenants()
-  tenantOptions.value = optionsRes
-  if (getTenantSysdomain.value?.tenantId) {
-    ruleForm.tenantId = getTenantSysdomain.value.tenantId
-    passwordRef.value.focus()
-    return
-  }
-  if (proxy.$dev) {
-    let nameIndex = tenantOptions.value.findIndex((v) => v.name === 'liu')
-    ruleForm.tenantId = proxy.uuid(tenantOptions.value, 'value', { optionsIndex: nameIndex === -1 ? 0 : nameIndex })
-  }
-}
+async function init() {}
 init()
 const logoInit = async () => {
   storeLogoSettings.changeSettings(globalLogoSettings.nativeLogo.favariteIcon)
@@ -99,17 +85,13 @@ const _login = async () => {
   const loginParams = {
     username: ruleForm.username,
     password: genPwdList[0],
-    sysdomain: ruleForm.tenantId,
+    sysdomain: 'SYS0',
   }
   let loginRes = await login(loginParams)
   let token = `${loginRes.tokenType} ${loginRes.token}`
-  proxy.setStorage('tenant-token', token)
+  proxy.setStorage('system-token', token)
 
-  let allSettledArr = [getFormat()].concat(
-    loginRes.roles.length === 1 && loginRes.roles[0] == 'ROLE_ADMIN_MONITOR'
-      ? []
-      : [bucketList.update({ showError: false })],
-  )
+  let allSettledArr = [getFormat()]
 
   Promise.allSettled(allSettledArr).then((res) => {
     if (res[0].status === 'fulfilled') {
@@ -125,16 +107,10 @@ const _login = async () => {
     }
   })
   return initRouter().then((routerRes) => {
-    const tenantName = tenantOptions.value.find((v) => v.value === ruleForm.tenantId).name
-    if (tenantName !== proxy.getStorage('tenant-sysdomain')?.tenantName) {
-      redirectUrl.value = ''
-    }
-    proxy.setStorage('tenant-sysdomain', {
-      tenantId: ruleForm.tenantId,
-      tenantName: tenantName,
+    proxy.setStorage('system-sysdomain', {
       loginName: ruleForm.username,
     })
-    let matchedRouteArr = _findSubMenu(proxy.getStorage('tenant-async-routes'), redirectUrl.value)
+    let matchedRouteArr = _findSubMenu(proxy.getStorage('system-async-routes'), redirectUrl.value)
     let jumpPath = matchedRouteArr[0] || matchedRouteArr[1]
     router.push(jumpPath).then(() => {
       proxy.$toast('登录成功')
@@ -184,17 +160,6 @@ onBeforeUnmount(() => {
             <h4 class="sign-el">Sign in</h4>
           </Motion>
           <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" size="large">
-            <Motion :delay="100">
-              <el-form-item prop="tenantId">
-                <o-select
-                  v-model="ruleForm.tenantId"
-                  :options="tenantOptions"
-                  :customLabel="customTenantLabel"
-                  width="100%"
-                  placeholder="请选择租户"
-                />
-              </el-form-item>
-            </Motion>
             <Motion :delay="100">
               <el-form-item prop="username">
                 <el-input

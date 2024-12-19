@@ -101,7 +101,7 @@ router.beforeEach((to: ToRouteType, _from, next) => {
       handleAliveRoute(to)
     }
   }
-  const token = getStorage('tenant-token')
+  const token = getStorage('system-token')
   NProgress.start()
   const externalLink = isUrl(to?.name as string)
   if (!externalLink) {

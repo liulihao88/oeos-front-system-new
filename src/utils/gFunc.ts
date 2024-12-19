@@ -19,7 +19,7 @@ export function gDownload(item) {
   let objectVersionID = item.version ? item.version : ''
   let dataUrl = `?bucket=${bucketName}&key=${encodeURIComponent(objectKey)}&version=${objectVersionID}`
   let baseUrl = import.meta.env.DEV ? settings.url : window.origin
-  let _href = baseUrl + getUrl + dataUrl + `&Authorization=${getStorage('tenant-token')}`
+  let _href = baseUrl + getUrl + dataUrl + `&Authorization=${getStorage('system-token')}`
   downloadFile(_href, objectKey)
 }
 
@@ -35,7 +35,7 @@ function downloadFile(url, filename = 'default') {
 export function gDownloadAll(id) {
   let baseUrl = import.meta.env.DEV ? settings.url : window.origin
   let getUrl = `/v1/admin/tenant/object/download/batch`
-  let _href = baseUrl + getUrl + `?id=${encodeURIComponent(id)}&Authorization=${getStorage('tenant-token')}`
+  let _href = baseUrl + getUrl + `?id=${encodeURIComponent(id)}&Authorization=${getStorage('system-token')}`
   window.location.href = _href
 }
 

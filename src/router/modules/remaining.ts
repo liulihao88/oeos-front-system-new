@@ -8,7 +8,7 @@ export default [
     component: () => import('@/views/login/index.vue'),
     beforeEnter(to, from) {
       if (from.fullPath === '/') {
-        clearStorage('tenant-sysdomain')
+        clearStorage('system-sysdomain')
       }
     },
     meta: {

@@ -32,7 +32,7 @@ init()
       <div class="font-box">
         <h2 class="text">
           {{
-            storeLogoSettings.nativeLogo?.tenantManagementTitle || globalLogoSettings.nativeLogo.tenantManagementTitle
+            storeLogoSettings.nativeLogo?.systemManagementTitle || globalLogoSettings.nativeLogo.systemManagementTitle
           }}
         </h2>
         <div class="line" />
@@ -72,7 +72,7 @@ init()
     width: 100%;
 
     .text {
-      width: 70%;
+      width: 80%;
       height: 70px;
       font-size: 40px;
       color: #fceea5;
@@ -80,7 +80,7 @@ init()
     }
 
     .console-box {
-      width: 70%;
+      width: 80%;
       margin-top: 16px;
       text-align: right;
     }

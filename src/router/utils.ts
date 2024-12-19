@@ -158,7 +158,7 @@ function handleAsyncRoutes(routeList) {
 function initRouter() {
   if (getConfig()?.CachingAsyncRoutes) {
     // 开启动态路由缓存本地localStorage
-    const key = 'tenant-async-routes'
+    const key = 'system-async-routes'
     const asyncRouteList = storageLocal().getItem(key) as any
     if (asyncRouteList && asyncRouteList?.length > 0) {
       return new Promise((resolve) => {
@@ -173,7 +173,7 @@ function initRouter() {
             reject()
           }
           let data = mergeMenus(TenantRouter, remoteData)
-          setStorage('tenant-async-routes', data)
+          setStorage('system-async-routes', data)
           handleAsyncRoutes(clone(data))
           storageLocal().setItem(key, data)
           resolve(router)
@@ -189,7 +189,7 @@ function initRouter() {
         }
         // remoteData = remoteData.slice(4)
         let data = mergeMenus(TenantRouter, remoteData)
-        setStorage('tenant-async-routes', data)
+        setStorage('system-async-routes', data)
         handleAsyncRoutes(clone(data))
         resolve(router)
       })

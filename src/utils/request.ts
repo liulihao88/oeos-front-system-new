@@ -32,7 +32,7 @@ const defaultConfig = {
 }
 
 const instance = axios.create({
-  baseURL: import.meta.env.VITE_PROXY_API + '/v1/admin/tenant',
+  baseURL: import.meta.env.VITE_PROXY_API + '/v1/admin/sys',
   timeout: 60000,
   validateStatus: function (status) {
     return true
@@ -45,7 +45,7 @@ instance.interceptors.request.use((config) => {
   if (_hasLoading(config.showLoading)) {
     loadingTrue(config.showLoading)
   }
-  const token = getStorage('tenant-token')
+  const token = getStorage('system-token')
   if (token) {
     config.headers.Authorization = token
   }

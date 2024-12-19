@@ -30,12 +30,7 @@ function onFresh() {
 
 <template>
   <div class="vertical-header-right">
-    <div class="mr">
-      <div>
-        当前租户: {{ proxy.getStorage('tenant-sysdomain').tenantName }} [
-        {{ proxy.getStorage('tenant-sysdomain').tenantId }} ]
-      </div>
-    </div>
+    <div class="mr" />
     <!-- 退出登录 -->
     <DropdownLayout />
     <o-tooltip content="刷新">

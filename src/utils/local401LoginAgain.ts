@@ -11,17 +11,17 @@ export async function devLogin() {
     let data = {
       username: 'admin',
       password: genPasRes[0],
-      sysdomain: getStorage('tenant-sysdomain').tenantId,
+      sysdomain: getStorage('system-sysdomain').tenantId,
     }
     let res = await request('/auth/signin', 'put', {
       type: 'common',
       data: data,
     })
     let token = `${res.tokenType} ${res.token}`
-    setStorage('tenant-token', token)
+    setStorage('system-token', token)
     router.go(0)
   } else {
-    localStorage.removeItem('tenant-token')
+    localStorage.removeItem('system-token')
     router.push({ name: 'Login' })
   }
 }
