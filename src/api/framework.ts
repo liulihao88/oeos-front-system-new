@@ -41,3 +41,11 @@ export function getMagazines(id) {
 export function getDrivers(id) {
   return request(`storage/glacier/ocean/library/${id}/drivers`)
 }
+
+/**
+ * 服务列表
+ */
+// 获取服务列表
+export function getServiceStatus() {
+  return request('service/status')
+}
