@@ -207,7 +207,13 @@ function updatePage() {
               <template v-if="parseIsShow(v.isShow, scope.row, scope)">
                 <template v-for="(val, idx) in v.baseBtns" :key="idx">
                   <template v-if="parseIsShow(val.isShow, scope.row, scope)">
-                    <slot v-if="val.useSlot" :name="val.prop" :row="scope.row" :scope="scope" />
+                    <slot
+                      v-if="val.useSlot"
+                      :name="val.prop"
+                      :row="scope.row"
+                      :scope="scope"
+                      :value="scope.row[val.prop]"
+                    />
                     <template v-else-if="parseReConfirm(val.reConfirm, scope.row, scope)">
                       <o-popconfirm
                         trigger="click"
@@ -266,7 +272,13 @@ function updatePage() {
                             :hide-on-click="false"
                             @click="val.handler?.(scope.row, scope)"
                           >
-                            <slot v-if="val.useSlot" :name="val.prop" :row="scope.row" :scope="scope" />
+                            <slot
+                              v-if="val.useSlot"
+                              :name="val.prop"
+                              :row="scope.row"
+                              :scope="scope"
+                              :value="scope.row[val.prop]"
+                            />
                             <template v-else>
                               <component
                                 :is="val.comp"
@@ -296,7 +308,7 @@ function updatePage() {
 
           <el-table-column v-else v-bind="{ ...v }">
             <template #default="scope">
-              <slot v-if="v.useSlot" :name="v.prop" :row="scope.row" :scope="scope" />
+              <slot v-if="v.useSlot" :name="v.prop" :row="scope.row" :scope="scope" :value="scope.row[v.prop]" />
               <span v-else-if="v.handler" class="hide-btns-button" @click.stop="v.handler(scope.row, scope)">
                 <span>{{ v.filter ? v.filter(scope.row[v.prop], scope.row, scope) : handleEmptyText(scope, v) }}</span>
               </span>

@@ -23,3 +23,21 @@ export function shutdownNode(params) {
     params,
   })
 }
+
+/**
+ * 蓝光列表
+ */
+// 获取蓝光列表
+export function getOceanList() {
+  return request('storage/glacier/ocean/libraries')
+}
+
+// 获取盘匣列表
+export function getMagazines(id) {
+  return request(`storage/glacier/ocean/library/${id}/magazines`)
+}
+
+// 获取光驱列表
+export function getDrivers(id) {
+  return request(`storage/glacier/ocean/library/${id}/drivers`)
+}
