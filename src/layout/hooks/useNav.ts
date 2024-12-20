@@ -15,8 +15,6 @@ import { usePermissionStoreHook } from '@/store/modules/permission'
 import ExitFullscreen from '@iconify-icons/ri/fullscreen-exit-fill'
 import Fullscreen from '@iconify-icons/ri/fullscreen-fill'
 import { clearStorage } from 'oeos-components'
-import useBucketList from '@/hooks/getBucketList.ts'
-const bucketList = useBucketList()
 
 import useBucketSettings from '@/store/modules/bucketSettings.ts'
 const bucketSettings = useBucketSettings()

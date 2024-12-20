@@ -10,8 +10,6 @@ import { useDataThemeChange } from '@/layout/hooks/useDataThemeChange'
 import LeftSide from '@/views/login/leftSide.vue'
 
 import { getTenants, encrypt, login, getFormat, getInitLogo, encryptionPassword } from '@/api/login.ts'
-import useBucketList from '@/hooks/getBucketList.ts'
-const bucketList = useBucketList()
 
 import globalLogoSettings from '@/config/settings.ts'
 import Lock from '@iconify-icons/ri/lock-fill'
