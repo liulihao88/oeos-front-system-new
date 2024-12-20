@@ -26,7 +26,7 @@ const { title, backTopMenu } = useNav()
         style="height: 20px; object-fit: contain"
       />
 
-      <div v-if="!collapse" class="title">租户管理平台</div>
+      <div v-if="!collapse" class="title">系统管理平台</div>
     </div>
   </div>
 </template>

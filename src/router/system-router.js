@@ -87,128 +87,249 @@ export default [
     ],
   },
   {
-    id: 'TM030',
-    path: '/object',
+    id: 'SM020',
+    path: '/storage',
     component: Layout,
     meta: {
-      icon: spaceViewSvg,
-      title: '空间浏览',
+      icon: spaceManagementSvg,
+      title: '存储管理',
     },
     children: [
       {
-        id: 'TM031',
-        path: '/object/search',
-        name: 'Search',
-        component: 'object/search',
+        id: 'SM021',
+        path: '/storage/overview',
+        name: 'StorageOverview',
+        component: 'storage/overview',
         meta: {
-          icon: easySearchSvg,
-          title: '简单搜索',
+          icon: BucketListSvg,
+          title: '存储概览',
         },
       },
       {
-        id: 'TM032',
-        path: '/object/advancesearch',
-        name: 'AdvanceSearch',
-        component: 'object/advancesearch',
+        id: 'SM022',
+        path: '/storage/cache',
+        name: 'StorageCache',
+        component: 'storage/cache',
         meta: {
-          icon: advanceSearchSvg,
-          title: '高级搜索',
+          icon: BucketListSvg,
+          title: '缓存概览',
         },
       },
       {
-        id: 'TM034',
-        path: '/object/unfrezze',
-        name: 'Unfrezze',
-        component: 'object/unfrezze',
+        id: 'SM023',
+        path: '/storage/class',
+        name: 'StorageClass',
+        component: 'storage/class',
         meta: {
-          icon: unfreezeViewSvg,
-          title: '解冻浏览',
+          icon: BucketListSvg,
+          title: '存储层',
+        },
+      },
+      {
+        id: 'SM024',
+        path: '/storage/pool',
+        name: 'StoragePool',
+        component: 'storage/pool',
+        meta: {
+          icon: BucketListSvg,
+          title: '池配置',
+        },
+      },
+      {
+        id: 'SM025',
+        path: '/storage/component',
+        name: 'StorageComponent',
+        component: 'storage/component',
+        meta: {
+          icon: BucketListSvg,
+          title: '组件配置',
         },
       },
     ],
   },
+
   {
-    id: 'TM020',
-    path: '/task',
+    id: 'SM030',
+    path: '/tenant',
     component: Layout,
     meta: {
-      icon: taskManagementSvg,
-      title: '任务管理',
+      icon: spaceManagementSvg,
+      title: '系统租户',
     },
     children: [
       {
-        id: 'TM021',
-        path: '/task/management',
-        name: 'TaskManagement',
-        component: 'task/management.vue',
+        id: 'SM031',
+        path: '/tenant/management',
+        name: 'TenantManagement',
+        component: 'tenant/management',
         meta: {
-          icon: bucketTaskSvg,
-          title: '桶任务',
-        },
-      },
-      {
-        id: 'TM022',
-        path: '/task/schedule',
-        name: 'Schedule',
-        component: 'task/schedule',
-        meta: {
-          icon: taskPlanSvg,
-          title: '任务计划',
+          icon: BucketListSvg,
+          title: '租户管理',
+          // showParent: true,
         },
       },
     ],
   },
+
   {
-    id: 'TM040',
-    path: '/security',
+    id: 'SM040',
+    path: '/feature',
     component: Layout,
     meta: {
-      icon: securityPermissionSvg,
-      title: '安全权限',
+      icon: spaceManagementSvg,
+      title: '服务功能',
     },
     children: [
       {
-        id: 'TM041',
-        path: '/security/user',
-        name: 'User',
-        component: 'security/user.vue',
+        id: 'SM041',
+        path: '/feature/command',
+        name: 'FeatureCommand',
+        component: 'feature/command',
         meta: {
-          icon: userManagemenetSvg,
-          title: '用户管理',
-        },
-      },
-      {
-        path: '/security/user',
-        meta: {
-          title: '用户管理',
-          name: 'User',
-        },
-        children: [
-          {
-            path: '/security/user/addUser',
-            name: 'AddUser',
-            meta: {
-              title: '用户编辑',
-              activePath: '/security/user',
-              showLink: false,
-              showParent: false,
-            },
-            component: 'security/addUser',
-          },
-        ],
-      },
-      {
-        id: 'TM042',
-        path: '/security/group',
-        name: 'Group',
-        component: 'security/group',
-        meta: {
-          icon: groupManagementSvg,
-          title: '组管理',
+          icon: BucketListSvg,
+          title: '内置命令',
+          // showParent: true,
         },
       },
     ],
   },
+
+  {
+    id: 'SM050',
+    path: '/monitor',
+    component: Layout,
+    meta: {
+      icon: spaceManagementSvg,
+      title: '系统监控',
+    },
+    children: [
+      {
+        id: 'SM051',
+        path: '/monitor/systemlog',
+        name: 'MonitorSystemlog',
+        component: 'monitor/systemlog',
+        meta: {
+          icon: BucketListSvg,
+          title: '服务日志',
+        },
+      },
+      {
+        id: 'SM052',
+        path: '/monitor/event',
+        name: 'MonitorEvent',
+        component: 'monitor/event',
+        meta: {
+          icon: BucketListSvg,
+          title: '系统事件',
+        },
+      },
+      {
+        id: 'SM053',
+        path: '/monitor/audit',
+        name: 'MonitorAudit',
+        component: 'monitor/audit',
+        meta: {
+          icon: BucketListSvg,
+          title: '审计日志',
+        },
+      },
+    ],
+  },
+
+  {
+    id: 'SM060',
+    path: '/config',
+    component: Layout,
+    meta: {
+      icon: spaceManagementSvg,
+      title: '系统配置',
+    },
+    children: [
+      {
+        id: 'SM061',
+        path: '/config/schedule',
+        name: 'ConfigSchedule',
+        component: 'config/schedule',
+        meta: {
+          icon: BucketListSvg,
+          title: '任务配置',
+        },
+      },
+      {
+        id: 'SM062',
+        path: '/config/notification',
+        name: 'ConfigNotification',
+        component: 'config/notification',
+        meta: {
+          icon: BucketListSvg,
+          title: '告警配置',
+        },
+      },
+      {
+        id: 'SM063',
+        path: '/config/audit',
+        name: 'ConfigAudit',
+        component: 'config/audit',
+        meta: {
+          icon: BucketListSvg,
+          title: '审计设置',
+        },
+      },
+      {
+        id: 'SM064',
+        path: '/config/sync',
+        name: 'ConfigSync',
+        component: 'config/sync',
+        meta: {
+          icon: BucketListSvg,
+          title: '复制关系',
+        },
+      },
+      {
+        id: 'SM065',
+        path: '/config/logo',
+        name: 'ConfigLogo',
+        component: 'config/logo',
+        meta: {
+          icon: BucketListSvg,
+          title: '徽标配置',
+        },
+      },
+    ],
+  },
+
+  {
+    id: 'SM070',
+    path: '/maintenance',
+    component: Layout,
+    meta: {
+      icon: spaceManagementSvg,
+      title: '系统维护',
+    },
+    children: [
+      {
+        id: 'SM071',
+        path: '/maintenance/license',
+        name: 'MaintenanceLicense',
+        component: 'maintenance/license',
+        meta: {
+          icon: BucketListSvg,
+          title: '容量许可证',
+        },
+      },
+      {
+        id: 'SM072',
+        path: '/maintenance/upgrade',
+        name: 'MaintenanceUpgrade',
+        component: 'maintenance/upgrade',
+        meta: {
+          icon: BucketListSvg,
+          title: '系统升级',
+        },
+      },
+    ],
+  },
+
   {
     path: '/test',
     component: Layout,
@@ -340,72 +461,6 @@ export default [
         meta: {
           title: '测试页6',
           showLink: true,
-        },
-      },
-    ],
-  },
-  {
-    id: 'TM050',
-    path: '/feature',
-    component: Layout,
-    meta: {
-      icon: serviceManageMentSvg,
-      title: '服务管理',
-    },
-    children: [
-      {
-        id: 'TM051',
-        path: '/feature/command',
-        name: 'InnerCommand',
-        component: 'system/innerCommand',
-        meta: {
-          icon: innerCommandSvg,
-          title: '内置命令',
-          showParent: true,
-        },
-      },
-    ],
-  },
-  {
-    id: 'TM060',
-    path: '/monitor',
-    component: Layout,
-    meta: {
-      icon: tenentControlSvg,
-      title: '租户监控',
-    },
-    children: [
-      {
-        id: 'TM061',
-        path: '/monitor/event',
-        name: 'Event',
-        component: 'system/event',
-        meta: {
-          icon: tenantEventSvg,
-          title: '租户事件',
-          showParent: true,
-        },
-      },
-    ],
-  },
-  {
-    id: 'TM070',
-    path: '/config',
-    component: Layout,
-    meta: {
-      icon: systemSettingSvg,
-      title: '系统配置',
-    },
-    children: [
-      {
-        id: 'TM071',
-        path: '/config/default',
-        name: 'DefaultConfig',
-        component: 'system/defaultConfig',
-        meta: {
-          icon: defaultConfigSvg,
-          title: '默认配置',
-          showParent: true,
         },
       },
     ],
