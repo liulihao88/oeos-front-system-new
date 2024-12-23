@@ -11,10 +11,6 @@ const props = defineProps({
     type: [String, Number],
     required: true,
   },
-  row: {
-    type: Object,
-    required: true,
-  },
 })
 function format() {
   return `${percentage.value}%`
