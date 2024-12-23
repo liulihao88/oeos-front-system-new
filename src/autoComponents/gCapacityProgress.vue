@@ -16,7 +16,10 @@ function format() {
   return `${percentage.value}%`
 }
 const percentage = computed(() => {
-  let divideNum = Number((props.used || 0) / (props.total || 0)) * 100
+  let divideNum = Number((props.used || 0) / (props.total || 0)) * 100 ?? 0
+  if (isNaN(divideNum)) {
+    return 0
+  }
   let percentRes = Number(divideNum.toFixed(2))
   return percentRes
 })
