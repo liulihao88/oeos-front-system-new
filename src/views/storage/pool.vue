@@ -3,8 +3,8 @@ import { ref, getCurrentInstance } from 'vue'
 const { proxy } = getCurrentInstance()
 import { getPoolList, getComponentsList, savePool, deletePool, testPool } from '@/api/storageApi.ts'
 
-import useCacheReqponse from '@/store/cacheReqponse'
-const cacheResponse = useCacheReqponse()
+import useCacheResponse from '@/store/cacheResponse'
+const cacheResponse = useCacheResponse()
 
 const isShow = ref(false)
 const data = ref([])

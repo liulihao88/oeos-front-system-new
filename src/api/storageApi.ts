@@ -58,3 +58,36 @@ export function testPool(id) {
 export function deletePool(id) {
   return request(`storage/standard/pool/${id}`, 'delete')
 }
+
+/**
+ * 组件配置
+ */
+// 组件配置列表
+export function getSummariesList() {
+  return request('storage/standard/component/summaries')
+}
+
+// 组件详情
+export function getSummariesDetail(id) {
+  return request(`storage/standard/component/${id}`)
+}
+
+// 组件类型列表
+export function getCompTypeList() {
+  return request('common/support/storages', { type: 'common' })
+}
+
+// 事件中心列表
+export function getCenterOptions() {
+  return request('storage/internal/datacenters')
+}
+
+// mapping列表
+export function getMappingList() {
+  return request('common/support/mappingpatterns', { type: 'common' })
+}
+
+// 保存组件
+export function saveComponent(data) {
+  return request('storage/standard/component', 'put', { data: data })
+}
