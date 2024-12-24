@@ -3,6 +3,7 @@ import { ref, getCurrentInstance } from 'vue'
 import { getSummariesList, getCompTypeList, getMappingList, getSummariesDetail } from '@/api/storageApi.ts'
 
 import ComponentBaseCache from '@/views/storage/components/componentBaseCache.vue'
+import ComponentBlueCache from '@/views/storage/components/componentBlueCache.vue'
 
 const { proxy } = getCurrentInstance()
 
@@ -11,6 +12,7 @@ const isTypeShow = ref(false)
 const typeOptions = ref([])
 const compType = ref()
 const baseCacheRef = ref(null)
+const blueCacheRef = ref(null)
 const locationOptions = ref([])
 const columns = [
   {
@@ -74,7 +76,7 @@ async function editRow(row) {
   let res = await getSummariesDetail(row.id)
   compType.value = res.type
   if (res.type === 'OceanStorage') {
-    // blueCacheRef.value.editOpen(res)
+    blueCacheRef.value.editOpen(res)
   } else {
     baseCacheRef.value.editOpen(res)
   }
@@ -91,7 +93,11 @@ const confirm = async () => {
   if (!compType.value) {
     return proxy.$toast('请选择类型', 'e')
   }
-  baseCacheRef.value.open(compType.value)
+  if (compType.value === 'OceanStorage') {
+    blueCacheRef.value.open(compType.value)
+  } else if (compType.value === 'LocalStorage') {
+    baseCacheRef.value.open(compType.value)
+  }
   isTypeShow.value = false
 }
 </script>
@@ -115,5 +121,6 @@ const confirm = async () => {
       :type="compType"
       @success="init"
     />
+    <ComponentBlueCache ref="blueCacheRef" :locationOptions="locationOptions" :options="typeOptions" @success="init" />
   </div>
 </template>

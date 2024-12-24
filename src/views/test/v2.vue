@@ -3,7 +3,7 @@
     <g-drawer
       v-model:visible="isShow"
       width="1000"
-      :title="isEdit ? `编辑组件(${type})` : `新增组件(${type})`"
+      :title="isEdit ? '编辑组件(蓝光)' : '新增组件(蓝光)'"
       @ok="handleOk"
     >
       <a-form-model ref="formRef" :model="form" :rules="rules" v-bind="mLayout(4)">
@@ -26,76 +26,42 @@
         <a-form-model-item label="名称" prop="name">
           <g-input v-model:value="form.name" />
         </a-form-model-item>
-
-        <a-form-model-item v-if="type === 'S3CompatibleStorage'" label="配额" prop="quota">
-          <div class="f-bt">
-            <g-input v-model:value="form.quota" class="w-150" />
-            <a-radio-group v-model="form.quotaUnit">
-              <a-radio-button value="GB">GB</a-radio-button>
-              <a-radio-button value="TB">TB</a-radio-button>
-              <a-radio-button value="PB">PB</a-radio-button>
-            </a-radio-group>
-          </div>
+        <a-form-model-item label="管理URL" prop="managementURL">
+          <g-input v-model:value="form.managementURL" />
         </a-form-model-item>
-        <a-form-model-item v-if="type !== 'InternalDSeriesStorage'" label="端点" prop="endpoint">
-          <g-input v-model:value="form.endpoint" />
+        <a-form-model-item label="蓝光主机" prop="controllerHost">
+          <g-input v-model:value="form.controllerHost" />
         </a-form-model-item>
-        <a-form-model-item v-if="type !== 'InternalDSeriesStorage'" label="桶名称" prop="bucketName">
-          <g-input v-model:value="form.bucketName" />
+        <a-form-model-item v-if="isEdit" label="volumeId" prop="volumeId">
+          <g-input v-model:value="form.volumeId" disabled />
         </a-form-model-item>
-
-        <a-form-model-item v-if="type !== 'InternalDSeriesStorage'" label="端口" prop="port">
-          <g-input v-model:value="form.port" v-number />
+        <a-form-model-item label="卷池编码" prop="volumeCode">
+          <g-input v-model:value="form.volumeCode" />
         </a-form-model-item>
-        <a-form-model-item v-if="type !== 'InternalDSeriesStorage'" label="启用SSL">
-          <a-switch v-model="form.enableSSL" active-color="#13ce66" inactive-color="#ff4949" />
+        <a-form-model-item label="卷池路径" prop="volumePath">
+          <g-input v-model:value="form.volumePath" />
         </a-form-model-item>
-        <a-form-model-item v-if="type !== 'InternalDSeriesStorage'" label="accessKey" prop="ak">
-          <g-input v-model:value="form.ak" />
+        <a-form-model-item label="数据池主机" prop="sharePointHost">
+          <g-input v-model:value="form.sharePointHost" />
         </a-form-model-item>
-        <a-form-model-item v-if="type !== 'InternalDSeriesStorage'" label="secretKey" :prop="isEdit ? '' : 'sk'">
-          <g-input v-model:value="form.sk" />
+        <a-form-model-item label="数据池名称">
+          <g-input v-model:value="form.sharePointName" />
         </a-form-model-item>
-        <a-form-model-item v-if="type !== 'InternalDSeriesStorage'" label="签名类型" prop="signerType">
-          <g-select v-model="form.signerType" :options="signOptions" placeholder="请选择" />
+        <a-form-model-item label="数据池端口" prop="sharePointPort">
+          <g-input v-model:value="form.sharePointPort" v-number />
         </a-form-model-item>
-        <a-form-model-item
-          v-if="type !== 'S3CompatibleStorage' && type !== 'InternalDSeriesStorage' && type !== 'HCPSSeriesStorage'"
-          label="MAPI主机"
-          prop="mapiHost"
-        >
-          <g-input v-model:value="form.mapiHost" />
+        <a-form-model-item label="数据池用户" prop="sharePointUser">
+          <g-input v-model:value="form.sharePointUser" />
         </a-form-model-item>
-        <a-form-model-item
-          v-if="type !== 'S3CompatibleStorage' && type !== 'InternalDSeriesStorage' && type !== 'HCPSSeriesStorage'"
-          label="MAPI端口"
-          prop="mapiPort"
-        >
-          <g-input v-model:value="form.mapiPort" v-number />
-        </a-form-model-item>
-        <a-form-model-item v-if="type === 'InternalDSeriesStorage'" label="数据中心名称" prop="dcname">
-          <g-select
-            v-model="form.dcname"
-            :customLabel="customLabel"
-            style="width: 100%"
-            :options="dcOptions"
-            val="name"
-            label="name"
-          />
+        <a-form-model-item label="数据池密码" :prop="isEdit ? '' : 'sharePointPassword'">
+          <g-input v-model:value="form.sharePointPassword" type="password" />
         </a-form-model-item>
 
-        <a-form-model-item v-if="type === 'HCPSSeriesStorage'" label="用户名" prop="username">
-          <g-input v-model:value="form.username" />
+        <a-form-model-item label="挂载点">
+          <g-input v-model:value="form.mountPoint" />
         </a-form-model-item>
-        <a-form-model-item v-if="type === 'HCPSSeriesStorage'" label="密码" :prop="isEdit ? '' : 'password'">
-          <g-input v-model:value="form.password" />
-        </a-form-model-item>
-        <a-form-model-item v-if="type === 'HCPSSeriesStorage'" label="API版本号" prop="apiVersion">
-          <g-input v-model:value="form.apiVersion" />
-        </a-form-model-item>
-
-        <a-form-model-item label="描述">
-          <a-input v-model="form.description" type="textarea" />
+        <a-form-model-item label="描述" prop="description">
+          <g-input v-model:value="form.description" type="textarea" />
         </a-form-model-item>
       </a-form-model>
     </g-drawer>
@@ -105,28 +71,20 @@
 <script>
 /**
 let obj = {
-		"name": "D节点存储层",
-		"type": "DSeriesStorage",
+		"name": "蓝光存储存储层（1）",
+		"type": "OceanStorage",
 		"readOnly": true,
-		"quota": 1,
-		"quotaUnit": "TB",
-		"deviceClass": "",
-		"storageDeviceID": "",
-		"endpoint": "datacenter.oeoshost:19000",
-		"bucketName": "dtspace1",
-		"port": -1,
-		"enableSSL": false,
-		"ak": "datacenteradmin",
-		"sk": "datacenteradmin",
-		"signerType": "v4",
-		"supportBatchDelete":false,
-		"deleteThread":10,
-		"mapiHost": "127.0.0.1",
-		"mapiPort": 9093
-		"description": null,
+		"managementURL":"http://10.0.11.104:8080/oss/index/index.do",
+		"controllerHost": "http://10.0.11.104:8033",
+		"volumeCode": "POOL-AAAAA",
+		"volumePath": "/mnt/testraid5/ocean/user-dev/cache/POOL-AAAAA",
+		"sharePointHost":"ffs://10.0.11.104",
+		"sharePointPort": 21,
+		"sharePointName":"/mnt/testraid5/ocean/user-dev/cache/POOL-AAAAA",
+		"sharePointUser":"user-dev",
+		"sharePointPassword":"password",
+		"mountPoint":"/usr/local/oct/oeos/data/ocean/volume/POOL-AAAAA"
 	}
-
-  dcname: ''
  */
 export default {
   name: 'BlueCache',
@@ -136,22 +94,12 @@ export default {
       type: Array,
       default: () => [],
     },
-    type: {
-      type: String, // S3CompatibleStorage, DSeriesStorage, InternalDSeriesStorage, HCPSSeriesStorage
-      default: '',
-    },
     locationOptions: {
       type: Array,
     },
   },
   data() {
     return {
-      signOptions: [
-        { label: 'Default', value: 'Default' },
-        { label: 'Signature Version 4', value: 'V4' },
-        { label: 'Signature Version 2', value: 'V2' },
-      ],
-      dcOptions: [],
       optionsRadio: [
         { text: 'GB', value: 'GB' },
         { text: 'TB', value: 'TB' },
@@ -160,25 +108,18 @@ export default {
       originForm: {},
       form: {
         quotaUnit: 'GB',
-        signerType: 'V4',
         mappingPattern: '',
       },
       rules: {
-        apiVersion: [this.mBlurRequired()],
         name: [this.mBlurRequired()],
-        quota: [this.mBlurRequired()],
-        endpoint: [this.mBlurRequired()],
-        bucketName: [this.mBlurRequired()],
-        port: [this.mBlurRequired()],
-        enableSSL: [this.mBlurRequired()],
-        ak: [this.mBlurRequired()],
-        username: [this.mBlurRequired()],
-        password: [this.mBlurRequired()],
-        sk: [this.mBlurRequired()],
-        signerType: [this.mBlurRequired('请选择')],
-        mapiHost: [this.mBlurRequired()],
-        mapiPort: [this.mBlurRequired()],
-        dcname: [this.mBlurRequired('请选择')],
+        managementURL: [this.mBlurRequired()],
+        controllerHost: [this.mBlurRequired()],
+        volumeCode: [this.mBlurRequired()],
+        volumePath: [this.mBlurRequired()],
+        sharePointHost: [this.mBlurRequired()],
+        sharePointPort: [this.mBlurRequired()],
+        sharePointUser: [this.mBlurRequired()],
+        sharePointPassword: [this.mBlurRequired()],
       },
       isShow: false,
       isEdit: false,
@@ -189,29 +130,9 @@ export default {
   watch: {},
   created() {
     this.originForm = this.$g.clone(this.form)
-    this.getDataCenters()
   },
   mounted() {},
   methods: {
-    customLabel(item) {
-      console.log(`item`, item)
-      return `名称: ${item.name}, 状态: ${item.statusTitle}, 总容量: ${this.$g.formatBytes(
-        item.totalSpace,
-      )}, 已用容量: ${this.$g.formatBytes(item.usedSpace)}`
-    },
-    async getDataCenters() {
-      let res = await this.$req({
-        url: 'storage/internal/datacenters',
-      })
-      console.log(`res`, res)
-      this.dcOptions = res
-      // if (this.$dev) {
-      //   this.dcOptions = this.dcOptions.map((v) => {
-      //     v.name = '123'
-      //     return v
-      //   })
-      // }
-    },
     async handleOk() {
       await this.mValidForm()
       if (this.form.mappingPattern !== this.originMappingPattern) {
