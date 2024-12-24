@@ -3,6 +3,9 @@ import { ref, getCurrentInstance } from 'vue'
 const { proxy } = getCurrentInstance()
 import { getPoolList, getComponentsList, savePool, deletePool, testPool } from '@/api/storageApi.ts'
 
+import useCacheReqponse from '@/store/cacheReqponse'
+const cacheResponse = useCacheReqponse()
+
 const isShow = ref(false)
 const data = ref([])
 const options = ref([])
@@ -69,7 +72,16 @@ async function testRow(row) {
   isShowTest.value = true
   testData.value = res
 }
-async function editRow(row) {}
+async function editRow(row) {
+  await cacheResponse.fetchComponentsList()
+  form.value = proxy.clone(row)
+  if (row.type === 'StandardStoragePool') {
+    options.value = cacheResponse.standardLists
+  } else if (row.type === 'GlacierStoragePool') {
+    options.value = cacheResponse.glacierLists
+  }
+  isShow.value = true
+}
 async function deleteRow(row) {
   await proxy.confirm(
     '删除存储池会导致系统内保存的数据无法访问，存储池内存储组件的存储空间无法释放，确认删除该存储池吗？',
@@ -89,7 +101,8 @@ const devTest = async () => {
     }, 500)
   }
 }
-const newAdd = () => {
+const newAdd = async () => {
+  await cacheResponse.fetchComponentsList()
   form.value = proxy.clone(originForm.value)
   isShow.value = true
   devTest()
@@ -101,10 +114,13 @@ const confirm = async () => {
   init()
 }
 
-const typeChange = async (value, label, obj) => {
+const typeChange = async (value) => {
   form.value.storageComponents = []
-  let res = await getComponentsList(obj.compValue)
-  options.value = res
+  if (value === 'StandardStoragePool') {
+    options.value = cacheResponse.standardLists
+  } else if (value === 'GlacierStoragePool') {
+    options.value = cacheResponse.glacierLists
+  }
 }
 </script>
 
@@ -125,10 +141,10 @@ const typeChange = async (value, label, obj) => {
             ref="typeRef"
             v-model="form.type"
             :options="[
-              { label: '标准存储池', compValue: 'Standard', value: 'StandardStoragePool' },
-              { label: '冰山存储池', compValue: 'Glacier', value: 'GlacierStoragePool' },
+              { label: '标准存储池', value: 'StandardStoragePool' },
+              { label: '冰山存储池', value: 'GlacierStoragePool' },
             ]"
-            @changeSelect="typeChange"
+            @change="typeChange"
           />
         </el-form-item>
         <el-form-item label="组件列表" prop="storageComponents">
