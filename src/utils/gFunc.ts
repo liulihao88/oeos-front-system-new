@@ -43,6 +43,14 @@ export function jump(path) {
   return router.push(path)
 }
 
+/**
+ *
+date: "YYYY-MM-DD"
+datetime:"YYYY-MM-DD HH:mm:ss"
+speed1s:"MB/s"
+time:"HH:mm:ss"
+uptime:"DD 天 HH 时 mm 分 ss 秒"
+ */
 export function formatTimeByRule(time, timeStr = 'datetime') {
   timeStr = timeStr.toLowerCase()
   if (isEmpty(time)) {

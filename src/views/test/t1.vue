@@ -1,24 +1,16 @@
 <script setup lang="ts">
 import { ref, getCurrentInstance } from 'vue'
 const { proxy } = getCurrentInstance()
-import { getInfoOverview } from '@/api/overviewApi.ts'
-import {
-  isUrl,
-  isEqual,
-  isNumber,
-  debounce,
-  isBoolean,
-  getKeyList,
-  storageLocal,
-  deviceDetection,
-} from '@pureadmin/utils'
+import LogRangeDate from '@/views/monitor/components/logRangeDate.vue'
 
-getInfoOverview()
+const from = ref()
+const to = ref()
 </script>
 
 <template>
   <div>
-    🏆
-    <div>test/t1.vue</div>
+    {{ from }}???===
+    {{ to }}
+    <LogRangeDate v-model:from="from" v-model:to="to" />
   </div>
 </template>
