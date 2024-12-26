@@ -276,6 +276,17 @@ export default [
         },
       },
       {
+        id: 'SM064',
+        path: '/config/sync',
+        name: 'ConfigSync',
+        component: 'config/sync',
+        meta: {
+          icon: BucketListSvg,
+          title: '复制关系',
+          showLink: false,
+        },
+      },
+      {
         id: 'SM065',
         path: '/config/logo',
         name: 'ConfigLogo',

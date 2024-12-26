@@ -1,171 +1,166 @@
 <template>
-  <div>
-    <g-drawer
-      v-model:visible="isShow"
-      width="1000"
-      :title="isEdit ? '编辑组件(蓝光)' : '新增组件(蓝光)'"
-      @ok="handleOk"
+  <basic-layout title="微标配置" class="audit-setUp-box">
+    <a-form-model
+      ref="ruleForm"
+      :model="form"
+      :rules="rules"
+      :label-col="labelCol"
+      :wrapper-col="wrapperCol"
+      :colon="false"
     >
-      <a-form-model ref="formRef" :model="form" :rules="rules" v-bind="mLayout(4)">
-        <a-form-model-item label="组件类型" prop="type">
-          <g-select
-            v-model="form.type"
-            :options="options"
-            disabled
-            val="value"
-            :customLabel="(obj) => `${obj.name}(${obj.value})`"
-          />
-        </a-form-model-item>
-        <a-form-model-item label="寻址模式" prop="mappingPattern">
-          <a-radio-group v-model="form.mappingPattern">
-            <span v-for="(v, i) in locationOptions" :key="i">
-              <a-radio-button :value="v.value">{{ v.name }}</a-radio-button>
-            </span>
-          </a-radio-group>
-        </a-form-model-item>
-        <a-form-model-item label="名称" prop="name">
-          <g-input v-model:value="form.name" />
-        </a-form-model-item>
-        <a-form-model-item label="管理URL" prop="managementURL">
-          <g-input v-model:value="form.managementURL" />
-        </a-form-model-item>
-        <a-form-model-item label="蓝光主机" prop="controllerHost">
-          <g-input v-model:value="form.controllerHost" />
-        </a-form-model-item>
-        <a-form-model-item v-if="isEdit" label="volumeId" prop="volumeId">
-          <g-input v-model:value="form.volumeId" disabled />
-        </a-form-model-item>
-        <a-form-model-item label="卷池编码" prop="volumeCode">
-          <g-input v-model:value="form.volumeCode" />
-        </a-form-model-item>
-        <a-form-model-item label="卷池路径" prop="volumePath">
-          <g-input v-model:value="form.volumePath" />
-        </a-form-model-item>
-        <a-form-model-item label="数据池主机" prop="sharePointHost">
-          <g-input v-model:value="form.sharePointHost" />
-        </a-form-model-item>
-        <a-form-model-item label="数据池名称">
-          <g-input v-model:value="form.sharePointName" />
-        </a-form-model-item>
-        <a-form-model-item label="数据池端口" prop="sharePointPort">
-          <g-input v-model:value="form.sharePointPort" v-number />
-        </a-form-model-item>
-        <a-form-model-item label="数据池用户" prop="sharePointUser">
-          <g-input v-model:value="form.sharePointUser" />
-        </a-form-model-item>
-        <a-form-model-item label="数据池密码" :prop="isEdit ? '' : 'sharePointPassword'">
-          <g-input v-model:value="form.sharePointPassword" type="password" />
-        </a-form-model-item>
+      <div class="form-inner-box">
+        <div class="top-item item">
+          <g-title title="品牌个性化配置" />
+          <div class="f-st-ed">
+            <div class="f-1">
+              <a-form-model-item ref="brandTitle" label="网络名称" prop="brandTitle">
+                <a-input v-model="form.brandTitle" allowClear />
+              </a-form-model-item>
+              <a-form-model-item ref="favariteIcon" label="网站图标" prop="favariteIcon">
+                <g-upload-image v-model:image="form.favariteIcon" />
+              </a-form-model-item>
+            </div>
+            <div class="f-1">
+              <a-form-model-item ref="brandImage" label="品牌图标" prop="brandImage">
+                <g-upload-image v-model:image="form.brandImage" />
+              </a-form-model-item>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <g-title title="系统管理登录界面个性化" />
+          <a-form-model-item ref="systemManagementTitle" label="标题" prop="systemManagementTitle">
+            <a-input v-model="form.systemManagementTitle" allowClear />
+          </a-form-model-item>
+          <a-form-model-item ref="systemManagementImage" label="商标" prop="systemManagementImage">
+            <g-upload-image v-model:image="form.systemManagementImage" />
+          </a-form-model-item>
+        </div>
+        <div class="item">
+          <g-title title="租户管理登录界面个性化" />
+          <a-form-model-item ref="tenantManagementTitle" label="标题" prop="tenantManagementTitle">
+            <a-input v-model="form.tenantManagementTitle" allowClear />
+          </a-form-model-item>
+          <a-form-model-item ref="tenantManagementImage" label="商标" prop="tenantManagementImage">
+            <g-upload-image v-model:image="form.tenantManagementImage" />
+          </a-form-model-item>
+        </div>
+      </div>
 
-        <a-form-model-item label="挂载点">
-          <g-input v-model:value="form.mountPoint" />
-        </a-form-model-item>
-        <a-form-model-item label="描述" prop="description">
-          <g-input v-model:value="form.description" type="textarea" />
-        </a-form-model-item>
-      </a-form-model>
-    </g-drawer>
-  </div>
+      <a-form-model-item class="m-l-24">
+        <a-button type="primary" @click="save">保存</a-button>
+        <a-button style="margin-left: 10px" @click="resetForm">初始化</a-button>
+      </a-form-model-item>
+    </a-form-model>
+  </basic-layout>
 </template>
-
 <script>
-/**
-let obj = {
-		"name": "蓝光存储存储层（1）",
-		"type": "OceanStorage",
-		"readOnly": true,
-		"managementURL":"http://10.0.11.104:8080/oss/index/index.do",
-		"controllerHost": "http://10.0.11.104:8033",
-		"volumeCode": "POOL-AAAAA",
-		"volumePath": "/mnt/testraid5/ocean/user-dev/cache/POOL-AAAAA",
-		"sharePointHost":"ffs://10.0.11.104",
-		"sharePointPort": 21,
-		"sharePointName":"/mnt/testraid5/ocean/user-dev/cache/POOL-AAAAA",
-		"sharePointUser":"user-dev",
-		"sharePointPassword":"password",
-		"mountPoint":"/usr/local/oct/oeos/data/ocean/volume/POOL-AAAAA"
-	}
- */
+import { setFavIcon } from '@/utils/baseFunc.js'
+
 export default {
-  name: 'BlueCache',
-  components: {},
-  props: {
-    options: {
-      type: Array,
-      default: () => [],
-    },
-    locationOptions: {
-      type: Array,
-    },
-  },
   data() {
     return {
-      optionsRadio: [
-        { text: 'GB', value: 'GB' },
-        { text: 'TB', value: 'TB' },
-        { text: 'PB', value: 'PB' },
-      ],
-      originForm: {},
+      datas: {},
+      labelCol: { span: 4 },
+      wrapperCol: { span: 14 },
+      other: '',
       form: {
-        quotaUnit: 'GB',
-        mappingPattern: '',
+        name: '',
       },
       rules: {
-        name: [this.mBlurRequired()],
-        managementURL: [this.mBlurRequired()],
-        controllerHost: [this.mBlurRequired()],
-        volumeCode: [this.mBlurRequired()],
-        volumePath: [this.mBlurRequired()],
-        sharePointHost: [this.mBlurRequired()],
-        sharePointPort: [this.mBlurRequired()],
-        sharePointUser: [this.mBlurRequired()],
-        sharePointPassword: [this.mBlurRequired()],
+        brandImage: [this.mRequired()],
+        brandTitle: [this.mRequired()],
+        systemManagementTitle: [this.mRequired()],
+        systemManagementImage: [this.mRequired()],
+        tenantManagementTitle: [this.mRequired()],
+        tenantManagementImage: [this.mRequired()],
+        favariteIcon: [this.mRequired()],
       },
-      isShow: false,
-      isEdit: false,
-      originMappingPattern: '',
     }
   },
-  computed: {},
-  watch: {},
   created() {
-    this.originForm = this.$g.clone(this.form)
+    console.log(Math.random())
+    this.setTitleCommonType(['系统配置', '微标配置'], [true, true], 'scheduling')
+    this.init()
   },
-  mounted() {},
   methods: {
-    async handleOk() {
-      await this.mValidForm()
-      if (this.form.mappingPattern !== this.originMappingPattern) {
-        await this.mConfirm('修改寻址模式会导致原始对象无法正确读取，您确定需要修改吗？')
-      }
-      await this.$req({
-        url: 'storage/standard/component',
-        method: 'put',
-        data: this.form,
+    async init() {
+      let res = await this.$req({
+        url: 'logo',
+        baseURL: '/v1/admin/common',
       })
-      this.$toast('保存成功')
-      this.$emit('success')
-      this.isShow = false
+      this.form = res
+      this.$g.setStorage('oeos-settings', res)
+      this.$store.commit('logo/changeSettings', res)
     },
-    editOpen(editItem) {
-      this.isShow = true
-      this.isEdit = true
-      this.form = editItem
-      this.originMappingPattern = editItem.mappingPattern
-      this.$refs.formRef?.clearValidate()
+    async resetForm() {
+      let res = await this.$req({
+        url: 'ui/logo/reset',
+        method: 'put',
+      })
+      this.form = res
+      this.$toast('重置成功')
+      await this.init()
+      // this.$router.go(0)
+      // this.$store.commit('news/refreshRouter')
     },
-    open(type) {
-      this.isEdit = false
-      this.form = this.$g.clone(this.originForm)
-      this.isShow = true
-      this.form.type = type
-      if (this.locationOptions.length > 0 && !this.form.mappingPattern) {
-        this.originMappingPattern = this.locationOptions.filter((v) => v.value === 'Flat')[0].value
-        this.form.mappingPattern = this.originMappingPattern
-      }
-      this.$refs.formRef?.clearValidate()
+    async save() {
+      this.$refs.ruleForm.validate(async (valid) => {
+        if (valid) {
+          this.form.updateTime = this.form.updateTime ?? +new Date()
+          await this.$req({
+            url: 'ui/logo',
+            method: 'put',
+            data: this.form,
+          })
+          this.$toast('保存成功')
+          await this.init()
+
+          // this.$router.go(0)
+          // this.$store.commit('news/refreshRouter')
+        } else {
+          this.$toast('表单校验有误, 请检查', 'e')
+          return false
+        }
+      })
     },
   },
 }
 </script>
-<style scoped lang="scss"></style>
+
+<style lang="scss" scoped>
+.form-inner-box {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 16px;
+
+  .item {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: calc(50% - 16px);
+    padding: 12px;
+    // justify-content: space-between;
+    margin: 8px;
+    background-color: #fff;
+    border: 1px solid #f1f1f4;
+    border-radius: 6px;
+    box-shadow: 0 3px 4px 0 rgb(0 0 0 / 3%);
+  }
+
+  .top-item {
+    width: calc(100% - 16px);
+  }
+}
+
+::v-deep .ant-form-item label {
+  width: 100px !important;
+  text-align-last: justify !important;
+}
+
+::v-deep .ant-form-item-required::before {
+  position: absolute;
+  top: 14px;
+  left: -14px;
+}
+</style>
