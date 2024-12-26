@@ -4,19 +4,25 @@ const cacheResponse = useCacheResponse()
 
  */
 import { getComponentsList, getCenterOptions } from '@/api/storageApi.ts'
+import { getTenant, getServiceOptions, getNodeOptions } from '@/api/monitorApi.ts'
 
 import { defineStore } from 'pinia'
 
 const useCacheResponse = defineStore('cache-response', {
   state: () => ({
-    standardLists: [], // 标准存储池组件列表
-    glacierLists: [], // 蓝光存储池组件列表
+    standardList: [], // 标准存储池组件列表
+    glacierList: [], // 蓝光存储池组件列表
 
-    dataCenterLists: [], // 数据中心列表
+    dataCenterList: [], // 数据中心列表
+
+    serviceList: [], // 服务列表
+    nodeList: [], // 节点列表
+
+    tenantList: [], // 租户列表
   }),
   getters: {
     dataLoaded: (state) => {
-      return state.standardLists.length > 0 && state.glacierLists.length > 0
+      return state.standardList.length > 0 && state.glacierList.length > 0
     },
   },
   actions: {
@@ -25,16 +31,36 @@ const useCacheResponse = defineStore('cache-response', {
         return
       }
       let res = await Promise.all([getComponentsList('Standard'), getComponentsList('Glacier')])
-      this.standardLists = res[0]
-      this.glacierLists = res[1]
+      this.standardList = res[0]
+      this.glacierList = res[1]
     },
     async fetchDataCenter() {
-      console.log(`79 this.dataCenterLists`, this.dataCenterLists)
-      if (this.dataCenterLists.length > 0) {
-        return this.dataCenterLists
+      if (this.dataCenterList.length > 0) {
+        return this.dataCenterList
       }
       let res = await getCenterOptions()
-      this.dataCenterLists = res
+      this.dataCenterList = res
+    },
+    async fetchServiceList() {
+      if (this.serviceList.length > 0) {
+        return this.serviceList
+      }
+      let res = await getServiceOptions()
+      this.serviceList = res
+    },
+    async fetchNodeList() {
+      if (this.nodeList.length > 0) {
+        return this.nodeList
+      }
+      let res = await getNodeOptions()
+      this.nodeList = res
+    },
+    async fetchTenantList() {
+      if (this.tenantList.length > 0) {
+        return this.tenantList
+      }
+      let res = await getTenant()
+      this.tenantList = res
     },
   },
 })

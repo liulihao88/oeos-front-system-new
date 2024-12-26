@@ -76,9 +76,9 @@ async function editRow(row) {
   await cacheResponse.fetchComponentsList()
   form.value = proxy.clone(row)
   if (row.type === 'StandardStoragePool') {
-    options.value = cacheResponse.standardLists
+    options.value = cacheResponse.standardList
   } else if (row.type === 'GlacierStoragePool') {
-    options.value = cacheResponse.glacierLists
+    options.value = cacheResponse.glacierList
   }
   isShow.value = true
 }
@@ -117,9 +117,9 @@ const confirm = async () => {
 const typeChange = async (value) => {
   form.value.storageComponents = []
   if (value === 'StandardStoragePool') {
-    options.value = cacheResponse.standardLists
+    options.value = cacheResponse.standardList
   } else if (value === 'GlacierStoragePool') {
-    options.value = cacheResponse.glacierLists
+    options.value = cacheResponse.glacierList
   }
 }
 </script>

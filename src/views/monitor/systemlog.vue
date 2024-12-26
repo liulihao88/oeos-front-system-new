@@ -3,7 +3,12 @@ import { ref, getCurrentInstance, computed, onMounted, onUnmounted } from 'vue'
 import LogRangeDate from '@/views/monitor/components/logRangeDate.vue'
 
 const { proxy } = getCurrentInstance()
-import { getLogList, startConnect, getServiceOptions, getNodeOptions, deleteLog } from '@/api/monitorApi'
+import { getLogList, startConnect, deleteLog } from '@/api/monitorApi'
+import useCacheResponse from '@/store/cacheResponse'
+const cacheResponse = useCacheResponse()
+
+cacheResponse.fetchServiceList()
+cacheResponse.fetchNodeList()
 
 const data = ref([])
 const timer = ref(null)
@@ -85,13 +90,6 @@ async function init() {
 }
 init()
 
-async function getOptions() {
-  let res = await Promise.all([getServiceOptions(), getNodeOptions()])
-  serviceOptions.value = res[0]
-  nodeOptions.value = res[1]
-}
-getOptions()
-
 const start = async () => {
   await startConnect(form.value)
   await init()
@@ -131,7 +129,7 @@ onUnmounted(() => {
       <div>
         <o-select
           v-model="form.services"
-          :options="serviceOptions"
+          :options="cacheResponse.serviceList"
           multiple
           title="服务列表"
           class="mr"
@@ -142,7 +140,7 @@ onUnmounted(() => {
         />
         <o-select
           v-model="form.nodes"
-          :options="nodeOptions"
+          :options="cacheResponse.nodeList"
           multiple
           title="节点列表"
           label="name"

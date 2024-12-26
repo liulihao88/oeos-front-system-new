@@ -219,7 +219,7 @@ defineExpose({
             v-model="form.dcname"
             :customLabel="customLabel"
             style="width: 100%"
-            :options="cacheResponse.dataCenterLists"
+            :options="cacheResponse.dataCenterList"
             value="name"
             label="name"
           />

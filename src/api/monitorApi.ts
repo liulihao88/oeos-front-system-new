@@ -28,3 +28,38 @@ export function startConnect(data) {
 export function deleteLog(id) {
   return request(`log/${id}`, 'delete')
 }
+
+/**
+ * 系统事件
+ */
+
+// 获取租户列表
+export function getTenant() {
+  return request('tenant/tenants')
+}
+
+// 获取系统事件列表
+export function getEventList(data) {
+  return request(`event/query?id=${data.id}`, 'put', { data: data, resolve: 'data' })
+}
+
+// 获取事件等级
+export function getLevels() {
+  return request('common/support/levels', { type: 'common' })
+}
+
+// 标记
+// 标记确认->Awarded 确认解决->Solved  取消解决->Ignored
+export function markEvent(id, type) {
+  return request(`event/mark/${id}/${type}`, 'put')
+}
+
+// 删除事件
+export function deleteEvent(id) {
+  return request(`event/delete/${id}`, 'delete')
+}
+
+// 导出事件
+export function exportEvent(data) {
+  return request(`event/query/export?id=${data.id}`, 'put', { data: data, customResponse: true, responseType: 'blob' })
+}
