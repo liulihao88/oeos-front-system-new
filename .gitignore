@@ -22,4 +22,5 @@ tests/**/coverage/
 tsconfig.tsbuildinfo
 tenant
 src/views/test/*.js
+src/views/test/v*.vue
 .vscode
