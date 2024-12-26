@@ -63,3 +63,16 @@ export function deleteEvent(id) {
 export function exportEvent(data) {
   return request(`event/query/export?id=${data.id}`, 'put', { data: data, customResponse: true, responseType: 'blob' })
 }
+
+/**
+ * 审计日志
+ */
+// 审计日志列表
+export function getCatalog(data) {
+  return request('audit/query', { params: data })
+}
+
+// 分类列表
+export function getCategorys() {
+  return request('common/support/auditcategorys', { type: 'common' })
+}

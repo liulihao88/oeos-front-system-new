@@ -4,7 +4,7 @@ const cacheResponse = useCacheResponse()
 
  */
 import { getComponentsList, getCenterOptions } from '@/api/storageApi.ts'
-import { getTenant, getServiceOptions, getNodeOptions } from '@/api/monitorApi.ts'
+import { getTenant, getServiceOptions, getNodeOptions, getCategorys } from '@/api/monitorApi.ts'
 
 import { defineStore } from 'pinia'
 
@@ -19,6 +19,8 @@ const useCacheResponse = defineStore('cache-response', {
     nodeList: [], // 节点列表
 
     tenantList: [], // 租户列表
+
+    auditCategorysList: [], // 分类列表
   }),
   getters: {
     dataLoaded: (state) => {
@@ -61,6 +63,13 @@ const useCacheResponse = defineStore('cache-response', {
       }
       let res = await getTenant()
       this.tenantList = res
+    },
+    async fetchGetCategorys() {
+      if (this.auditCategorysList.length > 0) {
+        return this.auditCategorysList
+      }
+      let res = await getCategorys()
+      this.auditCategorysList = res
     },
   },
 })
