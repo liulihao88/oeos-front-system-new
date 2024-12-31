@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ imgUrl }}
     <el-upload
       action="#"
       list-type="picture-card"
@@ -8,7 +7,6 @@
       :auto-upload="false"
       drag
       :show-file-list="false"
-      v-bind="$attrs"
       @change="handleChange"
     >
       <div v-if="imgUrl" class="download-img-box f-ar-ct">
@@ -27,7 +25,7 @@
           </el-icon>
         </div>
       </div>
-      <el-icon v-else class="avatar-uploader-icon"><el-icon-plus /></el-icon>
+      <el-icon v-else class="avatar-uploader-icon h-100%"><el-icon-plus /></el-icon>
     </el-upload>
 
     <el-dialog v-model="dialogVisible">
@@ -37,10 +35,10 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import type { UploadFile } from 'element-plus'
 
-const emits = defineEmits(['update:modelValue'])
+const emits = defineEmits(['update:modelValue', 'changeFile'])
 
 const props = defineProps({
   modelValue: {
@@ -60,7 +58,6 @@ const setBase64 = async (img) => {
   reader.readAsDataURL(img.raw)
   return new Promise((resolve, reject) => {
     reader.addEventListener('load', () => {
-      console.log(`46 reader`, reader)
       return resolve(reader.result)
     })
   })
@@ -74,11 +71,12 @@ const baseFile = ref()
 const removeImg = () => {
   imgUrl.value = ''
   baseFile.value = ''
+  emits('changeFile')
   emits('update:modelValue', '')
 }
 
 const handlePictureCardPreview = (file: UploadFile) => {
-  dialogImageUrl.value = baseFile.value.url!
+  dialogImageUrl.value = baseFile.value?.url || imgUrl.value
   dialogVisible.value = true
 }
 
@@ -87,11 +85,22 @@ const handleChange = async (file) => {
   imgUrl.value = URL.createObjectURL(file.raw)
   let res = await setBase64(file)
   emits('update:modelValue', res)
+  emits('changeFile')
 }
+
+watch(
+  () => props.modelValue,
+  (val) => {
+    imgUrl.value = val
+  },
+  {
+    immediate: true,
+  },
+)
 </script>
 
 <style lang="scss" scoped>
-:deep(.ep-upload-dragger) {
+:deep(.el-upload-dragger) {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -106,6 +115,7 @@ const handleChange = async (file) => {
   width: 100%;
   height: 100%;
   border: 1px solid rgb(224 224 224 / 100%);
+  border-radius: 6px;
 
   &:hover {
     .mask {
@@ -124,15 +134,17 @@ const handleChange = async (file) => {
   }
 
   img {
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
   }
 
   .preview-img-zoom {
     position: absolute;
-    right: calc(50% + 5px);
+    right: calc(50% + 15px);
     bottom: calc(50% - 15px);
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
   }
 
   .only-zoom {
@@ -143,18 +155,19 @@ const handleChange = async (file) => {
     position: absolute;
     right: calc(50% - 35px);
     bottom: calc(50% - 15px);
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
   }
 }
 
-:deep(.ep-upload-dragger) {
+:deep(.el-upload-dragger) {
   padding: 0;
   border: none;
   outline: none;
 }
 
-:deep(.ep-upload--picture-card) {
+:deep(.el-upload--picture-card) {
   border: none;
+  border: 1px solid var(--line);
 }
 </style>
