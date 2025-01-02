@@ -23,7 +23,7 @@ export function gDownload(item) {
   downloadFile(_href, objectKey)
 }
 
-function downloadFile(url, filename = 'default') {
+export function downloadFile(url, filename = 'default') {
   const link = document.createElement('a')
   link.href = url
   link.download = filename || 'default'
