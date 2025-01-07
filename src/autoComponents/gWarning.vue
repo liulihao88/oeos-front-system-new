@@ -55,6 +55,13 @@ const props = defineProps({
     font-weight: 400;
     color: #796551;
   }
+
+  :deep(code) {
+    padding: 2px;
+    background-color: #e4e7eb;
+    border-color: #c3cad2;
+    border-radius: 4px;
+  }
 }
 
 .icon-box {
@@ -63,6 +70,13 @@ const props = defineProps({
   min-height: 32px;
   padding: 8px;
   border-radius: 2px;
+
+  :deep(code) {
+    padding: 2px;
+    background-color: #e4e7eb;
+    border-color: #c3cad2;
+    border-radius: 4px;
+  }
 }
 
 .icon {
