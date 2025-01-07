@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, getCurrentInstance, onUnmounted } from 'vue'
-import { getNodeList, restartNode, shutdownNode } from '@/api/framework'
+import { getNodeList, restartNode, shutdownNode } from '@/api/frameworkApi'
 
 const { proxy } = getCurrentInstance()
 const form = ref({

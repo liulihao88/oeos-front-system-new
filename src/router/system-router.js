@@ -66,22 +66,22 @@ export default [
       },
       {
         id: 'SM012',
-        path: '/framework/ocean',
-        name: 'FrameworkOcean',
-        component: 'framework/ocean',
-        meta: {
-          icon: BucketListSvg,
-          title: '蓝光列表',
-        },
-      },
-      {
-        id: 'SM013',
         path: '/framework/service',
         name: 'FrameworkService',
         component: 'framework/service',
         meta: {
           icon: BucketListSvg,
           title: '服务列表',
+        },
+      },
+      {
+        id: 'SM013',
+        path: '/framework/ocean',
+        name: 'FrameworkOcean',
+        component: 'framework/ocean',
+        meta: {
+          icon: BucketListSvg,
+          title: '蓝光列表',
         },
       },
     ],

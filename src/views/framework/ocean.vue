@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, getCurrentInstance } from 'vue'
-import { getOceanList, getMagazines, getDrivers } from '@/api/framework.ts'
+import { getOceanList, getMagazines, getDrivers } from '@/api/frameworkApi.ts'
 
 const { proxy } = getCurrentInstance()
 

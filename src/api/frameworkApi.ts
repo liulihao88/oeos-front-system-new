@@ -49,3 +49,27 @@ export function getDrivers(id) {
 export function getServiceStatus() {
   return request('service/status')
 }
+// 服务列表详情
+export function serviceDetail(id) {
+  return request(`service/${id}/status`)
+}
+
+// 重启服务列表
+export function restartService(id, nodeId) {
+  return request(`service/${id}/restart`, 'put', {
+    data: [nodeId],
+  })
+}
+
+// 停止服务列表
+export function stopService(id, nodeId) {
+  return request(`service/${id}/stop`, 'put', {
+    data: [nodeId],
+  })
+}
+// 启动服务列表
+export function startService(id, nodeId) {
+  return request(`service/${id}/start`, 'put', {
+    data: [nodeId],
+  })
+}
