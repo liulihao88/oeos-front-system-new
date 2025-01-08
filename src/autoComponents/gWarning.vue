@@ -19,35 +19,28 @@ const props = defineProps({
 </script>
 
 <template>
-  <template v-if="type === 'icon'">
-    <div class="icon-box">
-      <o-icon name="warning" :color="'var(--45)'" v-bind="$attrs" class="icon" />
-      <slot name="content">
-        <div class="fs-14 cl-45" v-html="content" />
-      </slot>
-    </div>
-  </template>
-  <template v-else>
-    <div class="warning-box" :style="{ ...processWidth(props.width) }" v-bind="$attrs">
-      <img src="@/assets/images/notic.png" class="icon" />
-      <span class="warning-box__content">
-        <slot name="content">
-          <span v-html="content" />
-        </slot>
-      </span>
-    </div>
-  </template>
+  <div
+    :class="type === 'icon' ? 'icon-box' : type === 'info' ? 'info-box' : 'warning-box'"
+    class="base-box"
+    :style="{ ...processWidth(props.width) }"
+    v-bind="$attrs"
+  >
+    <img v-if="type === ''" src="@/assets/images/notic.png" class="icon" />
+    <o-icon v-else name="warning" :color="'var(--45)'" v-bind="$attrs" class="icon" size="16" />
+    <slot name="content">
+      <span class="warning-box__content" :class="type === 'icon' && 'cl-45 fs-14'" v-html="content" />
+    </slot>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-.warning-box {
+.base-box {
   display: flex;
   align-items: baseline;
   min-height: 32px;
   padding: 8px;
-  background: #fffaf4;
   border: 1px solid #dfca9e;
-  border-radius: 2px;
+  border-radius: 12px;
 
   .warning-box__content {
     margin-left: 4px;
@@ -55,28 +48,27 @@ const props = defineProps({
     font-weight: 400;
     color: #796551;
   }
+}
 
-  :deep(code) {
-    padding: 2px;
-    background-color: #e4e7eb;
-    border-color: #c3cad2;
-    border-radius: 4px;
-  }
+.warning-box {
+  background: #fffaf4;
+  border: 1px solid #dfca9e;
+}
+
+.info-box {
+  background: #f5f6f7;
+  border: 1px solid var(--line);
 }
 
 .icon-box {
-  display: flex;
-  align-items: baseline;
-  min-height: 32px;
-  padding: 8px;
-  border-radius: 2px;
+  border: none;
+}
 
-  :deep(code) {
-    padding: 2px;
-    background-color: #e4e7eb;
-    border-color: #c3cad2;
-    border-radius: 4px;
-  }
+:deep(code) {
+  padding: 2px;
+  background-color: #e4e7eb;
+  border-color: #c3cad2;
+  border-radius: 4px;
 }
 
 .icon {
@@ -84,6 +76,6 @@ const props = defineProps({
   top: 2px;
   width: 16px;
   height: 16px;
-  margin-right: 2px;
+  margin-right: 4px;
 }
 </style>
