@@ -1,16 +1,23 @@
 <script setup lang="ts">
 import { ref, getCurrentInstance } from 'vue'
+// import { OTitle } from 'oeos-components'
 const { proxy } = getCurrentInstance()
-const img = ref('我并不会')
-const content = `content both slotProps.root and additional props have the same keys but different values, the slotProps.root props will take precedence. This does not apply to classes or the style prop—they will be merged instead. <span class="code">额额额</span> <code>${img.value}</code>If both slotProps.root and additional props have the same keys but different values, the slotProps.root props will take precedence. This does not apply to classes or the style prop—they will be merged instead. <span class="code">额额额</span> <code>${img.value}</code>If both slotProps.root and additional props have the same keys but different values, the slotProps.root props will take precedence. This does not apply to classes or the style prop—they will be merged instead. <span class="code">额额额</span> <code>${img.value}</code>`
+let obj = {
+  name: 'andy',
+  age: 18,
+  height: 33,
+  sex: 'male',
+}
+
+// 直接在对象字面量中使用解构
+let newObj = { ...obj.name, ...obj.age }
+
+console.log(newObj) // 输出: { name: 'andy', age: 18 }
 </script>
 
 <template>
   <div>
-    <g-warning width="1000" type="icon" content="content" />
-    <g-warning width="1000" type="icon" :content="content" />
-    <g-warning width="1000" :content="content" />
-    <g-warning width="1000" type="info" :content="content" class="mt" />
+    <!-- <OTitle title="1632654743/incarnation_1/1001/data/backup_set_32_full_20240901/1/"></OTitle> -->
   </div>
 </template>
 

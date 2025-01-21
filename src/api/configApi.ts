@@ -1,6 +1,26 @@
 import request from '@/utils/request'
 
 /**
+ * 告警配置
+ */
+// 获取日志配置
+export function getLog(type = 'syslog') {
+  return request(`notify/${type}`)
+}
+// 保存日志配置
+export function saveLog(data, type = 'syslog') {
+  return request(`notify/${type}`, 'put', { data })
+}
+// 测试
+export function syslogTest(data, type = 'syslog') {
+  return request(`notify/${type}/test`, 'put', { data })
+}
+// 重置 notify/syslog/reset
+export function syslogReset(type = 'syslog') {
+  return request(`notify/${type}/reset`, 'put')
+}
+
+/**
  * 审计日志
  */
 // 获取审计设置配置
