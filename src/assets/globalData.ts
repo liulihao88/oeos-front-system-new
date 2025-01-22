@@ -51,3 +51,13 @@ export const TASK_TYPE_OPTIONS = [
 
 export const PAGE_SIZE = 30
 export const PAGE_NUMBER = 1
+
+export const TENANT_STATUS = {
+  Issue: '问题',
+  OutOfService: '未激活',
+  Loading: '激活中',
+  Unloading: '停服中',
+  Standby: '备用',
+  Unknown: '未知',
+  InService: '已激活',
+}

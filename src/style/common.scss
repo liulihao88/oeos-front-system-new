@@ -28,3 +28,36 @@
   font-size: 14px;
   color: #b4b0a3;
 }
+
+.c-list-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.c-list-item {
+  width: 24%;
+  margin-top: 16px;
+}
+
+.c-list-item:not(:nth-child(4n)) {
+  margin-right: calc(4% / 3);
+}
+
+.c-list-item-3 {
+  width: 32%;
+  margin-top: 16px;
+}
+
+.c-list-item-3:not(:nth-child(3n)) {
+  margin-right: calc(4% / 2);
+}
+
+.c-list-item-2 {
+  width: 48%;
+  margin-top: 16px;
+}
+
+.c-list-item-2:not(:nth-child(2n)) {
+  margin-right: calc(4% / 1);
+}

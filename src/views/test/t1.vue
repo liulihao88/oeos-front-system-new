@@ -1,24 +1,24 @@
 <script setup lang="ts">
 import { ref, getCurrentInstance } from 'vue'
-// import { OTitle } from 'oeos-components'
 const { proxy } = getCurrentInstance()
-let obj = {
-  name: 'andy',
-  age: 18,
-  height: 33,
-  sex: 'male',
-}
+// const crypto = require('crypto');
 
-// 直接在对象字面量中使用解构
-let newObj = { ...obj.name, ...obj.age }
+// function encryptText(text, secretKey) {
+//   const iv = crypto.randomBytes(16); // 随机生成初始化向量
+//   const cipher = crypto.createCipheriv('aes-256-cbc', secretKey, iv);
+//   let encrypted = cipher.update(text, 'utf8', 'base64');
+//   encrypted += cipher.final('base64');
+//   return `${iv.toString('base64')}:${encrypted}`;
+// }
 
-console.log(newObj) // 输出: { name: 'andy', age: 18 }
+// const secretKey = crypto.randomBytes(32); // 生成一个随机的密钥
+// const input = 'adminadmin';
+// const encrypted = encryptText(input, secretKey);
+// console.log(encrypted); // 输出加密后的字符串
 </script>
 
 <template>
   <div>
-    <!-- <OTitle title="1632654743/incarnation_1/1001/data/backup_set_32_full_20240901/1/"></OTitle> -->
+    <div>test/t1.vue</div>
   </div>
 </template>
-
-<style lang="scss" scoped></style>

@@ -104,6 +104,7 @@ const columns = [
   {
     label: '服务端口',
     prop: 'servePorts',
+    width: 100,
     align: 'center',
     filter: (val) => {
       return val.join(',') || '-'
@@ -112,12 +113,14 @@ const columns = [
   {
     label: '运行状态',
     prop: 'status',
+    width: 100,
     align: 'center',
     useSlot: true,
   },
   {
     label: '伺服状态',
     prop: 'serveStatus',
+    width: 100,
     align: 'center',
     useSlot: true,
   },
@@ -139,6 +142,7 @@ const columns = [
   {
     key: 'operation',
     label: '操作',
+    width: 200,
     btns: [
       {
         content: '重启',
@@ -191,8 +195,32 @@ const operationHandler = async (row, type) => {
 
 <template>
   <div>
-    <div v-for="(v, i) in lists" :key="i" @click="toDetail(v)">
-      <div>{{ v.name }}</div>
+    <div class="list-box c-list-box">
+      <div v-for="(v, i) in lists" :key="i" class="c-list-item cus-list-item" @click="toDetail(v)">
+        <div class="list-header">{{ v.name }} ({{ v.id }})</div>
+        <div class="list-main">
+          <div>
+            <span class="label">启动节点数量</span>
+            <span class="value">{{ v.upServices }}({{ v.id }})</span>
+          </div>
+          <div>
+            <span class="label">警告节点数量</span>
+            <span class="value">{{ v.warnServices }}</span>
+          </div>
+          <div>
+            <span class="label">启动节点数量</span>
+            <span class="value">{{ v.errorServices }}</span>
+          </div>
+          <div>
+            <span class="label">端口</span>
+            <span class="value">{{ v.mapiPort }}</span>
+          </div>
+          <div>
+            <span class="label">描述</span>
+            <span class="value">{{ v.description }}</span>
+          </div>
+        </div>
+      </div>
     </div>
 
     <o-dialog v-model="isShow" :title="`S3网关服务${nowId}`" width="1200">
@@ -211,3 +239,42 @@ const operationHandler = async (row, type) => {
     </o-dialog>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.list-box {
+  background: #eef0f3;
+  border-radius: 2px;
+
+  .cus-list-item {
+    height: 136px;
+    font-size: 12px;
+    cursor: pointer;
+    background: #fff;
+    border-top: 2px solid #7167e8;
+    box-shadow: 0 0 8px 3px rgb(170 170 170 / 32%);
+
+    .list-header {
+      height: 32px;
+      padding: 0 16px;
+      font-size: 16px;
+      line-height: 32px;
+      color: #7167e8;
+      background: #e8e7fb;
+    }
+
+    .list-main {
+      padding: 8px 16px;
+
+      .label {
+        display: inline-block;
+        width: 100px;
+        color: #989ca5;
+      }
+
+      .value {
+        color: #43404f;
+      }
+    }
+  }
+}
+</style>

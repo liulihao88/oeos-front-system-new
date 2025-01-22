@@ -36,9 +36,13 @@ export function getTenantBasic(id) {
   return request(`tenant/${id}/config/basic`)
 }
 
-// 调度配置 -> 计划任务
+// 调度配置 -> 计划任务列表
 export function getSchedules() {
   return request('schedule/schedules')
+}
+// 调度配置 -> 计划任务详情
+export function getTenantPlan(id) {
+  return request(`tenant/${id}/config/plan`)
 }
 // 调度配置 -> 分片删除天数
 export function tenantGc(id) {
@@ -68,4 +72,41 @@ export function getGateway(id) {
 // 租户对象信息
 export function getTenantHistogram(id) {
   return request(`tenant/${id}/histogram`)
+}
+
+/**
+ * 保存
+ * {
+  "tenant": "",
+  "quota": "1.0",
+  "quotaUnit": "GB",
+  "description": "desc",
+  "storagePoolId": "",
+  "scheduleId": "INNERSCHEDULE0",
+  "cachePolicy": "",
+  "maxMultipartRetainDays": 7,
+  "gatewayS3HttpPort": "-1",
+  "gatewayS3HttpsPort": "-1",
+  "aliasName": "andy1",
+  "name": "andy",
+  "superUser": "admin",
+  "maxMergableObjectSize": 0,
+  "enableAutoRestore": false,
+  "superUserPassword": "kG6/svk66K1KSF+ulvb6aHSEpY+b/YZkN/qwvYfy/Y/oEhUN00F/IDxhynTNvUU9EpBaSmhIoqzw7GDcbFdZwA==",
+  "accessibleStorages": [
+    "STANDARD_STORAGE1",
+    "STANDARD_STORAGE2",
+    "GLACIER_STORAGE1",
+    "GLACIER_STORAGE2",
+    "GLACIER_STORAGE3",
+    "GLACIER_STORAGE4",
+    "GLACIER_STORAGE4in1",
+    "GLACIER_STORAGE_R0"
+  ],
+  "defaultStorage": "STANDARD_STORAGE1",
+  "otherName": "andy1"
+}
+ */
+export function saveTenant(data) {
+  return request('tenant', 'post', { data })
 }
