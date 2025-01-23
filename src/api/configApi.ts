@@ -1,6 +1,50 @@
 import request from '@/utils/request'
 
 /**
+ * 任务配置
+ */
+// 获取任务类型
+export function scheduleType() {
+  return request('command/commands', { type: 'Tenant' })
+}
+
+// 获取任务名称列表
+export function getSchedule() {
+  return request('schedule/schedules')
+}
+
+// 获取任务名称下的任务详情
+export function getScheduleTaskList(id) {
+  return request(`schedule/${id}/task/list`)
+}
+
+// 删除任务
+export function deleteSchedule(id) {
+  return request(`schedule/${id}`, 'delete')
+}
+
+// 保存任务单
+export function saveSchedule(data) {
+  return request('schedule', 'put', { data })
+}
+
+/**
+ * 新建任务
+ * {
+  "commandID": "C001",
+  "taskName": "垃圾回收",
+  "taskId": "",
+  "scheduleId": "SCHED-1737619870889",
+  "daytimes": [
+    "Mon 02:00:00"
+  ]
+}
+ */
+export function saveTask(id, data) {
+  return request(`schedule/${id}/task`, 'put', { data })
+}
+
+/**
  * 告警配置
  */
 // 获取日志配置

@@ -1,40 +1,84 @@
 <script setup lang="ts">
 import { ref, getCurrentInstance } from 'vue'
 const { proxy } = getCurrentInstance()
-import { checkChanges } from '@/utils/gFunc.ts'
+import ScheduleChart from '@/views/config/components/scheduleChart.vue'
 
-let form = {
-  name: 'andy',
-  age: 18,
-}
-let t1 = {
-  name: 'andy',
-}
-
-let t2 = {
-  name: 'andy2',
-}
-
-let res = checkChanges(form, t1)
-let res2 = checkChanges(form, t2)
-console.log(`08 res2`, res2)
-
-let o = {
-  quota: '3.2 TB',
-  totalSpace: 3518437261312,
-  usedSpace: 2852476133,
-  name: null,
-  objectCount: 100273,
-  objectSize: 2852476133,
-  usageLevel: 'SUFFICIENT',
-}
-
-let res3 = proxy.formatBytes(o.usedSpace)
-console.log(`14 res3`, res3)
+// const weeks = ref([ { "scheduleId": "SCHED-1737619870889", "taskId": "T002", "taskName": "垃圾回收T002", "randomLaunchWaiting": 0, "commandID": "C001", "daytime": "Tue 02:04:00" }])
+const weeks = ref([])
+weeks.value = [
+  {
+    label: '星期一',
+    dayOfWeek: 'MONDAY',
+    dates: [
+      {
+        id: 'SCHED-15769',
+        name: 'aaa',
+        fromHH: 18,
+        fromMM: 35,
+        toHH: 19,
+        toMM: 35,
+        expressionKeyword: 'wpk:wp24h:',
+        parseTimes: ['18:35', '19:35'],
+      },
+    ],
+  },
+  {
+    label: '星期二',
+    dayOfWeek: 'TUESDAY',
+    dates: [],
+  },
+  {
+    label: '星期三',
+    dayOfWeek: 'WEDNESDAY',
+    dates: [
+      {
+        id: 'SCHED-15769',
+        name: 'aaa',
+        fromHH: 18,
+        fromMM: 35,
+        toHH: 19,
+        toMM: 35,
+        expressionKeyword: 'wpk:wp24h:',
+        parseTimes: ['18:35', '19:35'],
+      },
+      {
+        id: 'SCHED-15769',
+        name: 'aaa',
+        fromHH: 19,
+        fromMM: 40,
+        toHH: 22,
+        toMM: 35,
+        expressionKeyword: 'wpk:wp24h:',
+        parseTimes: ['19:40', '22:35'],
+      },
+    ],
+  },
+  {
+    label: '星期四',
+    dayOfWeek: 'THURSDAY',
+    dates: [],
+  },
+  {
+    label: '星期五',
+    dayOfWeek: 'FRIDAY',
+    dates: [],
+  },
+  {
+    label: '星期六',
+    dayOfWeek: 'SATURDAY',
+    dates: [],
+  },
+  {
+    label: '星期日',
+    dayOfWeek: 'SUNDAY',
+    dates: [],
+  },
+]
 </script>
 
 <template>
   <div>
-    <div>test/t1.vue</div>
+    <div>test/t11111.vue</div>
+    <ScheduleChart :weeks="weeks" />
   </div>
 </template>
