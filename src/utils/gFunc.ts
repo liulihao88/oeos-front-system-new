@@ -162,3 +162,31 @@ export function confirm2(message, options) {
       })
   })
 }
+
+/**
+ * 判断obj2里的属性值跟obj1里的属性值是否保持一致 obj2里的属性, 要都包含在obj1里, 且obj2里的属性值要和obj1相等
+ * @param obj1 原始对象类型
+ * @param obj2 要对比的对象类型
+ * @returns
+ */
+export function checkChanges(obj1: object, obj2: object) {
+  let obj1Length = Object.keys(obj1).length
+  let obj2Length = Object.keys(obj2).length
+  if (obj1Length < obj2Length) {
+    throw new Error('obj1 length is less than obj2')
+  }
+  let isChange = false
+  let newObj = {}
+  for (const key in obj2) {
+    if (obj2.hasOwnProperty(key)) {
+      if (obj2[key] !== obj1[key]) {
+        isChange = true
+      }
+      newObj[key] = obj1[key]
+    }
+  }
+  if (isChange) {
+    return newObj
+  }
+  return isChange
+}

@@ -1,20 +1,36 @@
 <script setup lang="ts">
 import { ref, getCurrentInstance } from 'vue'
 const { proxy } = getCurrentInstance()
-// const crypto = require('crypto');
+import { checkChanges } from '@/utils/gFunc.ts'
 
-// function encryptText(text, secretKey) {
-//   const iv = crypto.randomBytes(16); // 随机生成初始化向量
-//   const cipher = crypto.createCipheriv('aes-256-cbc', secretKey, iv);
-//   let encrypted = cipher.update(text, 'utf8', 'base64');
-//   encrypted += cipher.final('base64');
-//   return `${iv.toString('base64')}:${encrypted}`;
-// }
+let form = {
+  name: 'andy',
+  age: 18,
+}
+let t1 = {
+  name: 'andy',
+}
 
-// const secretKey = crypto.randomBytes(32); // 生成一个随机的密钥
-// const input = 'adminadmin';
-// const encrypted = encryptText(input, secretKey);
-// console.log(encrypted); // 输出加密后的字符串
+let t2 = {
+  name: 'andy2',
+}
+
+let res = checkChanges(form, t1)
+let res2 = checkChanges(form, t2)
+console.log(`08 res2`, res2)
+
+let o = {
+  quota: '3.2 TB',
+  totalSpace: 3518437261312,
+  usedSpace: 2852476133,
+  name: null,
+  objectCount: 100273,
+  objectSize: 2852476133,
+  usageLevel: 'SUFFICIENT',
+}
+
+let res3 = proxy.formatBytes(o.usedSpace)
+console.log(`14 res3`, res3)
 </script>
 
 <template>
