@@ -18,7 +18,7 @@ export function getScheduleTaskList(id) {
   return request(`schedule/${id}/task/list`)
 }
 
-// 删除任务
+// 删除任务配置
 export function deleteSchedule(id) {
   return request(`schedule/${id}`, 'delete')
 }
@@ -30,17 +30,43 @@ export function saveSchedule(data) {
 
 /**
  * 新建任务
+ *
  * {
   "commandID": "C001",
   "taskName": "垃圾回收",
-  "taskId": "",
+  "taskId": null,
   "scheduleId": "SCHED-1737619870889",
   "daytimes": [
-    "Mon 02:00:00"
+    "Mon 04:02:02",
+    "Tue 03:00:00",
+    "Wed 04:00:00",
+    "Thu 05:00:00",
+    "Fri 06:00:00",
+    "Sat 07:00:00",
+    "Sun 02:03:02"
   ]
+}
 }
  */
 export function saveTask(id, data) {
+  return request(`schedule/${id}/task`, 'put', { data })
+}
+
+// 删除任务
+export function deleteTask(id, taskId) {
+  return request(`schedule/${id}/${taskId}`, 'delete')
+}
+
+// 修改任务
+/**
+ *
+commandID:"C001",
+daytime:"Thu 01:00:00",
+scheduleId:"SCHED-1738472718174",
+taskId:"T004",
+taskName:"垃圾回收",
+ */
+export function modifyTask(id, data) {
   return request(`schedule/${id}/task`, 'put', { data })
 }
 

@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref, getCurrentInstance, computed } from 'vue'
+import ScheduleChart from '@/views/config/components/scheduleChart.vue'
+import TaskDialog from '@/views/config/components/taskDialog.vue'
 
-import { deleteSchedule, getSchedule, scheduleType, getScheduleTaskList, saveSchedule } from '@/api/configApi.ts'
+import { deleteSchedule, getSchedule, getScheduleTaskList, saveSchedule, saveTask } from '@/api/configApi.ts'
 
 const { proxy } = getCurrentInstance()
 const searchValue = ref('')
@@ -11,9 +13,9 @@ const originData = ref([])
 const selectRow = ref({})
 const selectedRows = ref({})
 const formRef = ref(null)
-const tenantCommandsOptions: any = ref([])
 const list: any = ref([])
 const nowEditRow = ref({})
+const taskDialogRef = ref(null)
 
 const isEdit = ref(false)
 const isShow = ref(false)
@@ -54,7 +56,9 @@ const newAdd = () => {
   form.value = {}
   isShow.value = true
 }
-const addSchedule = async () => {}
+const addSchedule = async () => {
+  taskDialogRef.value.open()
+}
 
 const handleCurrentChange = async (currentRow, oldCurrentRow) => {
   if (proxy.notEmpty(currentRow)) {
@@ -90,12 +94,6 @@ async function init() {
   _handleRowClick()
 }
 init()
-
-async function otherInit() {
-  let res = await scheduleType()
-  tenantCommandsOptions.value = res
-}
-otherInit()
 
 async function editRow(row) {
   isShow.value = true
@@ -134,6 +132,10 @@ const title = computed(() => {
     ? '新建租户'
     : `租户-[${selectedRows.value.name}]=[${selectedRows.value.value}]`
 })
+
+const scheduleEdit = (taskObj) => {
+  taskDialogRef.value.open(taskObj)
+}
 
 const scheduleConfirm = async () => {
   await proxy.validForm(formRef)
@@ -180,13 +182,12 @@ const taskTitle = computed(() => {
       </el-col>
       <el-col :span="18" class="h-100%">
         <div class="main c-box h-100%">
-          <div class="main-header">
+          <div class="main-header mb2">
             <o-title title="命令列表">
-              <el-button type="primary" class="ml2" icon="el-icon-save" @click="addSchedule">添加任务</el-button>
+              <el-button type="primary" class="ml2" icon="el-icon-plus" @click="addSchedule">添加任务</el-button>
             </o-title>
           </div>
-
-          {{ list }}
+          <ScheduleChart :weeks="list" @edit="scheduleEdit" />
         </div>
       </el-col>
     </el-row>
@@ -198,6 +199,8 @@ const taskTitle = computed(() => {
         </el-form-item>
       </el-form>
     </o-dialog>
+
+    <TaskDialog ref="taskDialogRef" :scheduleId="selectRow.value" @success="init" />
   </div>
 </template>
 
