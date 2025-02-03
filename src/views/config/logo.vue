@@ -59,7 +59,7 @@ init()
                   <g-upload-img v-model="form.favariteIcon" @changeFile="changeFile" />
                 </el-form-item>
               </div>
-              <div class="f-1 p-24">
+              <div class="f-1 p-l-24 brand-box">
                 <el-form-item label="品牌图标" prop="brandImage">
                   <g-upload-img v-model="form.brandImage" @changeFile="changeFile" />
                 </el-form-item>
@@ -104,3 +104,13 @@ init()
     </el-form>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.brand-box {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: end;
+  height: 100%;
+}
+</style>

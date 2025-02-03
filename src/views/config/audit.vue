@@ -47,8 +47,7 @@ const keepDaysChange = () => {
     </div>
 
     <div>
-      <span class="mr">同意开启如下审计功能:</span>
-      <el-switch v-model="form.enable" />
+      <g-switch v-model="form.enable" active-text="同意开启如下审计功能" />
     </div>
 
     <div>

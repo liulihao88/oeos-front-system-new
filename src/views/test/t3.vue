@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { ref, getCurrentInstance } from 'vue'
 const { proxy } = getCurrentInstance()
-let obj = {
-  used: 12091814153742,
-  total: 11259535939338240,
-}
+const cc = ref(true)
 </script>
 
 <template>
-  <div />
+  <div>
+    <g-switch v-model="cc" active-text="开启管理控制1" />
+  </div>
 </template>
