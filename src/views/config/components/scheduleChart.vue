@@ -13,7 +13,7 @@ const props = defineProps({
   },
 })
 
-const colorMap = ['#e96560', '#5ccfa3', '#77d6fa', '#1b2a47', '#5ccfa3', '#f8bc45', '#f3953d']
+const colorMap = ['#e96560', '#5ccfa3', '#77d6fa', '#f3953d', '#5ccfa3', '#f8bc45', '#f3953d']
 
 const baseData = [
   {
@@ -28,7 +28,7 @@ const baseData = [
   },
   {
     label: '星期三',
-    dayOfWeek: 'WEDNESDAY',
+    dayOfWeek: 'Wed',
     dates: [],
   },
   {
@@ -74,15 +74,16 @@ function translateValue(value) {
 }
 const context = ref([])
 
-const editDetail = (bar) => {
-  console.log(`63 bar`, bar)
-  emits('edit', bar.dates[0])
+const editDetail = (bar, i = 0) => {
+  emits('edit', bar.dates[i])
 }
 
 const parseContent = (bar, item) => {
   let showText = ''
   ;(bar.dates || []).forEach((v) => {
-    showText += `${v.taskName}:<span class="cl-green">${v.timeLabel}</span><br>`
+    if (bar.beginDate === v.beginDate) {
+      showText += `${v.taskName}:<span class="cl-green ml">${v.timeLabel}</span><br>`
+    }
   })
   return showText
 }
@@ -90,9 +91,6 @@ const parseContent = (bar, item) => {
 watch(
   () => props.weeks,
   (val) => {
-    if (isEmpty(val)) {
-      return
-    }
     const baseObj = {
       ganttBarConfig: {
         immobile: false,
@@ -102,9 +100,24 @@ watch(
         },
       },
     }
+    if (isEmpty(val)) {
+      context.value = baseData.map((v, i) => {
+        let arr = []
+        let obj = {
+          ...baseObj,
+          label: v.label,
+          beginDate: '',
+          endDate: '',
+        }
+        obj.ganttBarConfig.style.background = 'unset'
+        arr.push(obj)
+        return arr
+      })
+      return
+    }
+
     let finalData = translateValue(val)
     context.value = finalData.map((v, i) => {
-      console.log(`46 v`, v)
       let arr = []
       const cloneDates = clone(v.dates)
       if (v.dates.length === 0) {
@@ -124,9 +137,7 @@ watch(
           obj.endDate = val?.endDate ?? ''
           obj.ganttBarConfig.label = v.dates.length === 1 ? '1' : v.dates.length
           obj.ganttBarConfig.style.background = colorMap[i]
-          if (i === 3) {
-            obj.ganttBarConfig.style.color = '#fff'
-          }
+
           obj.dates = cloneDates
           arr.push(obj)
         })
@@ -164,10 +175,25 @@ watch(
       :hasHandles="false"
     >
       <template #bar-label="{ bar }">
-        <template v-if="bar.ganttBarConfig.label == 1">
+        <template v-if="bar.dates?.filter((val) => val.beginDate === bar.beginDate).length == 1">
           <o-tooltip :content="parseContent(bar, item)" raw-content width="200" class="cp" @click="editDetail(bar)">
-            &nbsp;&nbsp;{{ bar.ganttBarConfig.label }}&nbsp;&nbsp;
+            {{ bar.dates?.filter((val) => val.beginDate === bar.beginDate).length }}
           </o-tooltip>
+        </template>
+        <template v-else>
+          <el-dropdown trigger="click">
+            {{ bar.dates?.filter((val) => val.beginDate === bar.beginDate).length }}
+            <template #dropdown>
+              <el-dropdown-menu>
+                <template v-for="(v, i) in bar.dates?.filter((val) => val.beginDate === bar.beginDate)" :key="i">
+                  <el-dropdown-item @click="editDetail(bar, i)">
+                    {{ v.taskName }}
+                    <span class="cl-green ml">{{ v.timeLabel }}</span>
+                  </el-dropdown-item>
+                </template>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
         </template>
       </template>
     </g-gantt-row>
@@ -185,5 +211,21 @@ watch(
   .g-timeunits-container {
     height: 100%;
   }
+}
+
+:deep(.g-gantt-row:last-child) {
+  border-bottom: 2px solid #eaeaea;
+}
+
+:deep(.tooltip__text),
+:deep(.el-tooltip__trigger),
+:deep(.el-dropdown) {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+:deep(.g-gantt-bar-label) {
+  padding: 0;
 }
 </style>

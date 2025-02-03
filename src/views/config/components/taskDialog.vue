@@ -28,10 +28,11 @@ const originForm = ref({})
 const isEdit = ref(false)
 const commonOptions: any = ref([])
 const details = ref({})
+const globalSetting = ref()
+
 async function init() {
   let res = await scheduleType()
   commonOptions.value = res.filter((v) => v.name === '垃圾回收')
-  console.log(`18 commonOptions.value`, commonOptions.value)
   form.value.commandID = commonOptions.value[0].value
   form.value.taskName = commonOptions.value[0].name
   originForm.value = proxy.clone(form.value)
@@ -48,6 +49,7 @@ const open = (taskObj = '') => {
     isEdit.value = true
   } else {
     isEdit.value = false
+    globalSetting.value = ''
     details.value = {}
   }
   isShow.value = true
@@ -64,15 +66,19 @@ function transObjToArr() {
 }
 
 const timeChange = (value) => {
-  console.log(`27 value`, value)
   if (isEdit.value) {
     Object.keys(timeMap).forEach((v) => {
-      console.log(`65 v`, v)
       if (value !== v) {
         form.value[v] = ''
       }
     })
   }
+}
+
+const globalSettingChange = (value) => {
+  Object.keys(timeMap).forEach((v) => {
+    form.value[v] = value
+  })
 }
 
 const confirm = async () => {
@@ -150,6 +156,9 @@ defineExpose({
         </el-form-item>
 
         <div class="c-form-title">执行时间</div>
+        <el-form-item v-if="!isEdit" label="统一设置" prop="">
+          <el-time-picker v-model="globalSetting" value-format="HH:mm:ss" @change="globalSettingChange" />
+        </el-form-item>
         <template v-for="(key, value, index) in timeMap" :key="index">
           <el-form-item :label="key" :prop="value">
             <el-time-picker v-model="form[value]" value-format="HH:mm:ss" @change="timeChange(value, index)" />

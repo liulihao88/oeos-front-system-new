@@ -32,7 +32,7 @@ const columns = [
   {
     key: 'operation',
     label: '操作',
-    width: 100,
+    width: 120,
     btns: [
       {
         content: '编辑',
@@ -80,7 +80,7 @@ const _handleRowClick = () => {
   }
   if (localScheduleId) {
     let taskNameIdx = data.value.findIndex((item) => {
-      return item.name === localScheduleId
+      return item.value === localScheduleId
     })
     clickIdx = taskNameIdx === -1 ? 0 : taskNameIdx
   }
@@ -207,15 +207,5 @@ const taskTitle = computed(() => {
 <style lang="scss" scoped>
 .box {
   height: calc(100vh);
-}
-
-.left {
-  // background: #fff;
-  // padding: 0 16px;
-}
-
-.main {
-  // background: #fff;
-  // padding: 0 16px;
 }
 </style>
