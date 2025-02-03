@@ -80,7 +80,7 @@ function revertAll(attr, label) {
       <el-form-item label="支持邮件通知" prop="enable">
         <el-switch v-model="form.enable" />
       </el-form-item>
-      <div>服务器设置</div>
+      <div class="c-form-title">服务器设置</div>
 
       <el-row>
         <el-form-item label="" prop="host">
@@ -96,7 +96,14 @@ function revertAll(attr, label) {
 
       <el-row>
         <el-form-item label="" prop="protcol">
-          <o-select v-model="form.protcol" :disabled="!form.enable" type="simple" title="协议" :options="['SMTP']" />
+          <o-select
+            v-model="form.protcol"
+            :disabled="!form.enable"
+            type="simple"
+            title="协议"
+            :options="['SMTP']"
+            style="height: 32px"
+          />
         </el-form-item>
         <el-form-item label="" prop="sendUser">
           <o-input v-model="form.sendUser" :disabled="!form.enable" title="用户名" class="mlr" />
@@ -128,7 +135,7 @@ function revertAll(attr, label) {
         />
       </el-form-item>
 
-      <div>信息设置</div>
+      <div class="c-form-title">信息设置</div>
       <g-warning content="信息设置填写必读" type="icon" />
       <div>
         一、用户可自定义信息内容发送 ; 二、可添加模板字符（服务端将根据模板解析适配内容）, 以下示例为模板字段 : 1、
@@ -154,3 +161,5 @@ function revertAll(attr, label) {
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped></style>
