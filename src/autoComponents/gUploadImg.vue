@@ -28,8 +28,10 @@
       <el-icon v-else class="avatar-uploader-icon h-100%"><el-icon-plus /></el-icon>
     </el-upload>
 
-    <el-dialog v-model="dialogVisible">
-      <img w-full :src="dialogImageUrl" alt="Preview Image" />
+    <el-dialog v-model="dialogVisible" width="1000px">
+      <div class="img-box">
+        <img w-full :src="dialogImageUrl" alt="Preview Image" />
+      </div>
     </el-dialog>
   </div>
 </template>
@@ -37,6 +39,7 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
 import type { UploadFile } from 'element-plus'
+import { api as viewerApi } from 'v-viewer'
 
 const emits = defineEmits(['update:modelValue', 'changeFile'])
 
@@ -77,7 +80,10 @@ const removeImg = () => {
 
 const handlePictureCardPreview = (file: UploadFile) => {
   dialogImageUrl.value = baseFile.value?.url || imgUrl.value
-  dialogVisible.value = true
+  // dialogVisible.value = true
+  viewerApi({
+    images: [dialogImageUrl.value],
+  })
 }
 
 const handleChange = async (file) => {
@@ -169,5 +175,20 @@ watch(
 :deep(.el-upload--picture-card) {
   border: none;
   border: 1px solid var(--line);
+}
+
+.img-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 500px;
+  background-color: #fff;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; // 这里是为了让图片, 不缩放
+  }
 }
 </style>

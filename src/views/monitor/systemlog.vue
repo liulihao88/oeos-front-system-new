@@ -152,7 +152,7 @@ onUnmounted(() => {
         />
         <LogRangeDate v-model:from="form.fromDatetime" v-model:to="form.toDatetime" width="350" />
       </div>
-      <div class="f">
+      <div class="f-st-ct" style="align-items: baseline">
         <g-warning type="icon" content="打包文件至多保存一天, 请尽快下载!" class="mr" />
         <el-button type="primary" :disabled="collectDisabled" @click="start">开始收集日志</el-button>
       </div>
