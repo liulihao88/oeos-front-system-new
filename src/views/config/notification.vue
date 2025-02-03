@@ -17,9 +17,7 @@ const navOptions = ref([
 
 <template>
   <div>
-    <div>config/notification.vue</div>
     <o-tabs v-model="navValue" :options="navOptions" />
-
     <div v-if="navValue === 'log'">
       <LogNotification />
     </div>
