@@ -110,13 +110,12 @@ const newAdd = async () => {
     <o-table ref="tableRef" :columns="columns" :data="data" />
 
     <o-dialog ref="dialogRef" v-model="isShow" title="组件信息">
-      <el-form ref="formRef" :model="testDetail">
+      <el-form ref="formRef" :model="testDetail" label-width="auto">
         <el-form-item label="组件存储ID" prop="id">
           <o-input v-model="testDetail.id" disabled />
         </el-form-item>
         <el-form-item label="状态" prop="statusTitle">
           <o-input v-model="testDetail.statusTitle" disabled />
-          {{ testDetail }}
         </el-form-item>
         <el-form-item label="容量比例" prop="">
           <template v-if="testDetail.totalSpace">

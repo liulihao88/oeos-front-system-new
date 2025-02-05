@@ -63,7 +63,7 @@ const progressWidth = computed(() => {
       <template #default="{ percentage }">
         <div class="f-bt-ct" :style="{ width: progressWidth }">
           <div class="percentage-value">{{ format() }}</div>
-          <div>
+          <div class="mr">
             <slot />
           </div>
         </div>

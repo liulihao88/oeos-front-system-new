@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, getCurrentInstance } from 'vue'
+import { ref, getCurrentInstance, computed } from 'vue'
 const { proxy } = getCurrentInstance()
-import { getPoolList, getComponentsList, savePool, deletePool, testPool } from '@/api/storageApi.ts'
+import { getPoolList, savePool, deletePool, testPool } from '@/api/storageApi.ts'
 
 import useCacheResponse from '@/store/cacheResponse'
 const cacheResponse = useCacheResponse()
@@ -17,6 +17,7 @@ const isShowTest = ref(false)
 const testData = ref({})
 originForm.value = proxy.clone(form.value)
 const formRef = ref(null)
+const editObject = ref({})
 const rules = {
   name: [proxy.validate()],
   type: [proxy.validate('请选择')],
@@ -80,6 +81,7 @@ async function editRow(row) {
   } else if (row.type === 'GlacierStoragePool') {
     options.value = cacheResponse.glacierList
   }
+  editObject.value = row
   isShow.value = true
 }
 async function deleteRow(row) {
@@ -105,6 +107,7 @@ const newAdd = async () => {
   await cacheResponse.fetchComponentsList()
   form.value = proxy.clone(originForm.value)
   isShow.value = true
+  editObject.value = {}
   devTest()
 }
 const confirm = async () => {
@@ -122,6 +125,9 @@ const typeChange = async (value) => {
     options.value = cacheResponse.glacierList
   }
 }
+const title = computed(() => {
+  return Object.keys(editObject.value).length ? `池编辑(${editObject.value.id})` : '池新增'
+})
 </script>
 
 <template>
@@ -131,7 +137,7 @@ const typeChange = async (value) => {
     </div>
     <o-table ref="tableRef" :columns="columns" :data="data" height="calc(100vh - 244px)" />
 
-    <o-dialog ref="dialogRef" v-model="isShow" title="池新增" @confirm="confirm">
+    <o-dialog ref="dialogRef" v-model="isShow" :title="title" @confirm="confirm">
       <el-form ref="formRef" :model="form" :rules="rules" label-width="auto">
         <el-form-item label="名字" prop="name">
           <o-input v-model="form.name" v-focus />
@@ -148,7 +154,14 @@ const typeChange = async (value) => {
           />
         </el-form-item>
         <el-form-item label="组件列表" prop="storageComponents">
-          <o-select ref="componentsRef" v-model="form.storageComponents" label="name" :options="options" multiple />
+          <o-select
+            ref="componentsRef"
+            v-model="form.storageComponents"
+            label="name"
+            :options="options"
+            multiple
+            width="100%"
+          />
         </el-form-item>
         <el-form-item label="描述" prop="description">
           <o-input v-model="form.description" type="textarea" />
