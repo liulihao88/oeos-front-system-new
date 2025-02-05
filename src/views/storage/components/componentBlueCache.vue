@@ -106,11 +106,6 @@ defineExpose({
           />
         </el-form-item>
         <el-form-item label="寻址模式" prop="mappingPattern">
-          <!-- <a-radio-group v-model="form.mappingPattern">
-            <span v-for="(v, i) in locationOptions" :key="i">
-              <a-radio-button :value="v.value">{{ v.name }}</a-radio-button>
-            </span>
-          </a-radio-group> -->
           <o-radio v-model="form.mappingPattern" label="name" :options="props.locationOptions" />
         </el-form-item>
         <el-form-item label="名称" prop="name">

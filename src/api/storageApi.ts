@@ -87,7 +87,17 @@ export function getMappingList() {
   return request('common/support/mappingpatterns', { type: 'common' })
 }
 
+// 删除组件
+export function deleteComponent(id) {
+  return request(`storage/standard/component/${id}`, 'delete')
+}
+
 // 保存组件
 export function saveComponent(data) {
   return request('storage/standard/component', 'put', { data: data })
+}
+
+// 测试组件
+export function testComponent(id) {
+  return request(`storage/standard/component/${id}/status`)
 }

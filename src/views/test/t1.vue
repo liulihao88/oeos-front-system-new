@@ -17,7 +17,10 @@ const data = ref([
 
 <template>
   <div>
-    <div>test/t11111.vue</div>
-    <ScheduleChart :weeks="data" />
+    <g-warning content="修改寻址模式会导致原始对象无法正确读取，您确定需要修改吗？" />
+    <g-warning
+      content="修改寻址模式会导致原始对象无法正确读取，您确定需要修改吗？修改寻址模式会导致原始对象无法正确读取，您确定需要修改吗？修改寻址模式会导致原始对象无法正确读取，您确定需要修改吗？修改寻址模式会导致原始对象无法正确读取，您确定需要修改吗？"
+    />
+    <!-- <ScheduleChart :weeks="data" /> -->
   </div>
 </template>

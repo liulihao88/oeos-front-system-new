@@ -1,4 +1,11 @@
 <script setup lang="ts">
+/**
+ *
+ <g-capacity-progress :total="row.totalSpace" :used="row.usedSpace">
+    {{ proxy.formatBytes(row.usedSpace) }} / {{ proxy.formatBytes(row.totalSpace) }}
+  </g-capacity-progress>
+ */
+
 import { ref, getCurrentInstance, computed } from 'vue'
 const { proxy } = getCurrentInstance()
 const progressBoxRef = ref(null)
@@ -42,7 +49,7 @@ const progressWidth = computed(() => {
 </script>
 
 <template>
-  <div class="f-st-ct">
+  <div class="f-st-ct w-100%">
     <o-progress
       ref="progressBoxRef"
       class="progress-box"

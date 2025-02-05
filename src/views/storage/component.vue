@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { ref, getCurrentInstance } from 'vue'
-import { getSummariesList, getCompTypeList, getMappingList, getSummariesDetail } from '@/api/storageApi.ts'
+import {
+  getSummariesList,
+  getCompTypeList,
+  getMappingList,
+  getSummariesDetail,
+  deleteComponent,
+  testComponent,
+} from '@/api/storageApi.ts'
 
 import ComponentBaseCache from '@/views/storage/components/componentBaseCache.vue'
 import ComponentBlueCache from '@/views/storage/components/componentBlueCache.vue'
@@ -8,12 +15,13 @@ import ComponentBlueCache from '@/views/storage/components/componentBlueCache.vu
 const { proxy } = getCurrentInstance()
 
 const data = ref([])
-const isTypeShow = ref(false)
 const typeOptions = ref([])
 const compType = ref()
 const baseCacheRef = ref(null)
 const blueCacheRef = ref(null)
 const locationOptions = ref([])
+const testDetail = ref({})
+const isShow = ref(false)
 const columns = [
   {
     label: '存储组件ID',
@@ -44,7 +52,7 @@ const columns = [
         handler: editRow,
       },
       {
-        content: '编辑',
+        content: '删除',
         handler: deleteRow,
       },
     ],
@@ -61,7 +69,6 @@ const getTypeOptionsInit = async () => {
   typeOptions.value = res.filter((v) => {
     return v.value !== 'RFAStorage' && v.value !== 'LocalStorage'
   })
-  console.log(`16 typeOptions.value `, typeOptions.value)
 }
 getTypeOptionsInit()
 async function getMappingListInit() {
@@ -69,8 +76,10 @@ async function getMappingListInit() {
   locationOptions.value = res
 }
 getMappingListInit()
-function testRow() {
-  console.log('testRow')
+async function testRow(row) {
+  let res = await testComponent(row.id)
+  testDetail.value = res
+  isShow.value = true
 }
 async function editRow(row) {
   let res = await getSummariesDetail(row.id)
@@ -81,24 +90,14 @@ async function editRow(row) {
     baseCacheRef.value.editOpen(res)
   }
 }
-function deleteRow() {
-  console.log('deleteRow')
+async function deleteRow(row) {
+  await deleteComponent(row.id)
+  proxy.$toast('删除成功')
+  init()
 }
 const newAdd = async () => {
   compType.value = ''
-  isTypeShow.value = true
-}
-
-const confirm = async () => {
-  if (!compType.value) {
-    return proxy.$toast('请选择类型', 'e')
-  }
-  if (compType.value === 'OceanStorage') {
-    blueCacheRef.value.open(compType.value)
-  } else if (compType.value === 'LocalStorage') {
-    baseCacheRef.value.open(compType.value)
-  }
-  isTypeShow.value = false
+  baseCacheRef.value.open()
 }
 </script>
 
@@ -110,8 +109,23 @@ const confirm = async () => {
 
     <o-table ref="tableRef" :columns="columns" :data="data" />
 
-    <o-dialog ref="dialogRef" v-model="isTypeShow" title="选择类型" @confirm="confirm">
-      <o-radio v-model="compType" label="name" :options="typeOptions" />
+    <o-dialog ref="dialogRef" v-model="isShow" title="组件信息">
+      <el-form ref="formRef" :model="testDetail">
+        <el-form-item label="组件存储ID" prop="id">
+          <o-input v-model="testDetail.id" disabled />
+        </el-form-item>
+        <el-form-item label="状态" prop="statusTitle">
+          <o-input v-model="testDetail.statusTitle" disabled />
+          {{ testDetail }}
+        </el-form-item>
+        <el-form-item label="容量比例" prop="">
+          <template v-if="testDetail.totalSpace">
+            <g-capacity-progress :total="testDetail.totalSpace" :used="testDetail.usedSpace">
+              {{ proxy.formatBytes(testDetail.usedSpace) }} / {{ proxy.formatBytes(testDetail.totalSpace) }}
+            </g-capacity-progress>
+          </template>
+        </el-form-item>
+      </el-form>
     </o-dialog>
 
     <ComponentBaseCache
