@@ -75,7 +75,7 @@ function translateValue(value) {
 const context = ref([])
 
 const editDetail = (bar, i = 0) => {
-  emits('edit', bar.dates[i])
+  emits('edit', bar.dates.filter((val) => val.beginDate === bar.beginDate)[i])
 }
 
 const parseContent = (bar, item) => {
@@ -161,6 +161,10 @@ watch(
     bar-start="beginDate"
     bar-end="endDate"
     grid
+    push-on-overlap
+    no-overlap
+    :row-height="80"
+    width="100%"
   >
     <template #upper-timeunit>
       <h1 />
@@ -220,12 +224,20 @@ watch(
 :deep(.tooltip__text),
 :deep(.el-tooltip__trigger),
 :deep(.el-dropdown) {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
+  height: 100%;
+  line-height: 100%;
   text-align: center;
 }
 
 :deep(.g-gantt-bar-label) {
   padding: 0;
+}
+
+:deep(.g-gantt-row-label) {
+  height: 10%;
 }
 </style>

@@ -135,7 +135,7 @@ const modify = async () => {
 
 const title = computed(() => {
   if (isEdit.value) {
-    return '编辑任务'
+    return `编辑任务(${details.value.taskName})`
   } else {
     return '新建任务'
   }
