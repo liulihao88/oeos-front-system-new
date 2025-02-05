@@ -185,7 +185,7 @@ watch(
           </o-tooltip>
         </template>
         <template v-else>
-          <el-dropdown trigger="click">
+          <el-dropdown trigger="hover">
             {{ bar.dates?.filter((val) => val.beginDate === bar.beginDate).length }}
             <template #dropdown>
               <el-dropdown-menu>
