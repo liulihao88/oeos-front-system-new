@@ -20,7 +20,7 @@ tests/**/coverage/
 *.njsproj
 *.sln
 tsconfig.tsbuildinfo
-tenant
+sys
 src/views/test/*.js
 src/views/test/v*.vue
 .vscode

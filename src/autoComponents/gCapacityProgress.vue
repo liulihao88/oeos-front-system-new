@@ -23,7 +23,7 @@ function format() {
   return `${percentage.value}%`
 }
 const percentage = computed(() => {
-  let divideNum = Number((props.used || 0) / (props.total || 0)) * 100 ?? 0
+  let divideNum = Number((props.used || 0) / (props.total || 0)) * 100 || 0
   if (isNaN(divideNum)) {
     return 0
   }
