@@ -68,13 +68,26 @@ const columns = [
   {
     key: 'operation',
     label: '操作',
+    width: 120,
     btns: [
       {
         content: '详情',
+        comp: 'o-icon',
+        attrs: {
+          type: 'svg',
+          name: 'detail',
+          content: '详情',
+        },
         handler: detailRow,
       },
       {
         content: '管理',
+        comp: 'o-icon',
+        attrs: {
+          type: 'svg',
+          name: 'management',
+          content: '管理',
+        },
         handler: manageRow,
       },
     ],

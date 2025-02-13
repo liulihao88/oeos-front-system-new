@@ -146,13 +146,25 @@ const columns = [
     btns: [
       {
         content: '重启',
-        disabled: (row) => {
+        comp: 'o-icon',
+        attrs: {
+          name: 'RefreshRight',
+          content: '重启',
+        },
+        disabled: (row, scope) => {
           return row.status?.toUpperCase?.() !== 'RUNNING'
         },
         handler: (row) => operationHandler(row, 'restart'),
       },
       {
         content: '停止',
+        comp: 'o-icon',
+        attrs: {
+          type: 'svg',
+          name: 'stop',
+          content: '停止',
+          size: 20,
+        },
         disabled: (row) => {
           return row.status?.toUpperCase?.() !== 'RUNNING'
         },
@@ -160,6 +172,12 @@ const columns = [
       },
       {
         content: '启动',
+        comp: 'o-icon',
+        attrs: {
+          type: 'svg',
+          name: 'run',
+          content: '启动',
+        },
         disabled: (row) => {
           return row.status?.toUpperCase?.() !== 'STOPED'
         },

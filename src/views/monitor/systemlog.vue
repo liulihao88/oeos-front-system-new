@@ -67,10 +67,23 @@ const columns = [
     btns: [
       {
         content: '下载',
+        comp: 'o-icon',
+        attrs: {
+          name: 'download',
+          type: 'svg',
+          content: '下载',
+        },
       },
       {
         content: '删除',
         handler: deleteRow,
+        comp: 'o-icon',
+        attrs: {
+          name: 'delete',
+          type: 'svg',
+          content: '删除',
+        },
+        reConfirm: !proxy.$dev,
       },
     ],
   },

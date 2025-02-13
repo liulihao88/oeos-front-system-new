@@ -23,6 +23,22 @@ import systemSettingSvg from '@/assets/svg/menu/system-setting.svg'
 import defaultConfigSvg from '@/assets/svg/menu/default-config.svg'
 import testSvg from '@/assets/svg/menu/test.svg'
 
+import XtglSvg from '@/assets/svg/system/xtgl.svg'
+import JcjgSvg from '@/assets/svg/system/jcjg.svg'
+import CcglSvg from '@/assets/svg/system/ccgl.svg'
+// import XtzhSvg from '@/assets/svg/system/xtzh.svg'
+import FwgnSvg from '@/assets/svg/system/fwgn.svg'
+import XtjkSvg from '@/assets/svg/system/xtjk.svg'
+import XtpzSvg from '@/assets/svg/system/xtpz.svg'
+import XtwhSvg from '@/assets/svg/system/xtwh.svg'
+import JdlbSvg from '@/assets/svg/system/jdlb.svg'
+import FwlbSvg from '@/assets/svg/system/fwlb.svg'
+import LglbSvg from '@/assets/svg/system/qscclb.svg'
+import RwpzSvg from '@/assets/svg/system/rwpz.svg'
+import GjpzSvg from '@/assets/svg/system/gjpz.svg'
+import SjszSvg from '@/assets/svg/system/sjsz.svg'
+import HbpzSvg from '@/assets/svg/system/hbpz.svg'
+
 const isDev = process.env.NODE_ENV === 'development'
 export default [
   {
@@ -30,7 +46,7 @@ export default [
     path: '/apps/overview',
     component: Layout,
     meta: {
-      icon: testSvg,
+      icon: XtglSvg,
       title: '系统概览',
     },
     children: [
@@ -39,7 +55,7 @@ export default [
         name: 'Overview',
         component: 'overview/index',
         meta: {
-          icon: tenantViewSvg,
+          icon: XtglSvg,
           title: '系统概览',
         },
       },
@@ -50,7 +66,7 @@ export default [
     path: '/framework',
     component: Layout,
     meta: {
-      icon: spaceManagementSvg,
+      icon: JcjgSvg,
       title: '基础架构',
     },
     children: [
@@ -60,7 +76,7 @@ export default [
         name: 'FrameworkNode',
         component: 'framework/node',
         meta: {
-          icon: BucketListSvg,
+          icon: JdlbSvg,
           title: '节点列表',
         },
       },
@@ -70,7 +86,7 @@ export default [
         name: 'FrameworkService',
         component: 'framework/service',
         meta: {
-          icon: BucketListSvg,
+          icon: FwlbSvg,
           title: '服务列表',
         },
       },
@@ -80,7 +96,7 @@ export default [
         name: 'FrameworkOcean',
         component: 'framework/ocean',
         meta: {
-          icon: BucketListSvg,
+          icon: LglbSvg,
           title: '蓝光列表',
         },
       },
@@ -91,7 +107,7 @@ export default [
     path: '/storage',
     component: Layout,
     meta: {
-      icon: spaceManagementSvg,
+      icon: CcglSvg,
       title: '存储管理',
     },
     children: [
@@ -153,7 +169,7 @@ export default [
     path: '/tenant',
     component: Layout,
     meta: {
-      icon: spaceManagementSvg,
+      // icon: XtzhSvg,
       title: '系统租户',
     },
     children: [
@@ -165,7 +181,7 @@ export default [
         meta: {
           icon: BucketListSvg,
           title: '租户管理',
-          // showParent: true,
+          showParent: true,
         },
       },
     ],
@@ -176,7 +192,7 @@ export default [
     path: '/feature',
     component: Layout,
     meta: {
-      icon: spaceManagementSvg,
+      icon: FwgnSvg,
       title: '服务功能',
     },
     children: [
@@ -188,7 +204,7 @@ export default [
         meta: {
           icon: BucketListSvg,
           title: '内置命令',
-          // showParent: true,
+          showParent: true,
         },
       },
     ],
@@ -199,7 +215,7 @@ export default [
     path: '/monitor',
     component: Layout,
     meta: {
-      icon: spaceManagementSvg,
+      icon: XtjkSvg,
       title: '系统监控',
     },
     children: [
@@ -241,7 +257,7 @@ export default [
     path: '/config',
     component: Layout,
     meta: {
-      icon: spaceManagementSvg,
+      icon: XtpzSvg,
       title: '系统配置',
     },
     children: [
@@ -251,7 +267,7 @@ export default [
         name: 'ConfigSchedule',
         component: 'config/schedule',
         meta: {
-          icon: BucketListSvg,
+          icon: RwpzSvg,
           title: '任务配置',
         },
       },
@@ -261,7 +277,7 @@ export default [
         name: 'ConfigNotification',
         component: 'config/notification',
         meta: {
-          icon: BucketListSvg,
+          icon: GjpzSvg,
           title: '告警配置',
         },
       },
@@ -271,7 +287,7 @@ export default [
         name: 'ConfigAudit',
         component: 'config/audit',
         meta: {
-          icon: BucketListSvg,
+          icon: SjszSvg,
           title: '审计设置',
         },
       },
@@ -292,7 +308,7 @@ export default [
         name: 'ConfigLogo',
         component: 'config/logo',
         meta: {
-          icon: BucketListSvg,
+          icon: HbpzSvg,
           title: '徽标配置',
         },
       },
@@ -304,7 +320,7 @@ export default [
     path: '/maintenance',
     component: Layout,
     meta: {
-      icon: spaceManagementSvg,
+      icon: XtwhSvg,
       title: '系统维护',
     },
     children: [

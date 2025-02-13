@@ -72,11 +72,17 @@ const columns = [
   {
     key: 'operation',
     label: '操作',
+    width: 120,
     btns: [
       {
         content: '重启',
         handler: restoreRow,
         disabled: true,
+        comp: 'o-icon',
+        attrs: {
+          name: 'RefreshRight',
+          content: '重启',
+        },
         // disabled: (row) => {
         //   return row.serveStatus !== 'InService'
         // },
@@ -84,6 +90,11 @@ const columns = [
       {
         content: '关闭',
         handler: closeRow,
+        comp: 'o-icon',
+        attrs: {
+          name: 'close',
+          content: '关闭',
+        },
         // disabled: (row) => {
         //   return row.serveStatus !== 'InService'
         // },

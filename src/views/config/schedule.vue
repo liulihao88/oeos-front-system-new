@@ -37,10 +37,23 @@ const columns = [
       {
         content: '编辑',
         handler: editRow,
+        comp: 'o-icon',
+        attrs: {
+          name: 'edit',
+          type: 'svg',
+          content: '编辑',
+        },
       },
       {
         content: '删除',
         handler: deleteRow,
+        comp: 'o-icon',
+        attrs: {
+          name: 'delete',
+          type: 'svg',
+          content: '删除',
+        },
+        reConfirm: !proxy.$dev,
       },
     ],
   },

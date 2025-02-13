@@ -77,15 +77,22 @@ const columns = [
   {
     key: 'operation',
     label: '操作',
-    width: 100,
+    width: 80,
     align: 'center',
     btns: [
       {
         content: '删除',
         handler: deleteRow,
+        comp: 'o-icon',
         disabled: (row) => {
           return row.authorizationType === 'BUILTIN'
         },
+        attrs: {
+          name: 'delete',
+          type: 'svg',
+          content: '删除',
+        },
+        reConfirm: !proxy.$dev,
       },
     ],
   },
