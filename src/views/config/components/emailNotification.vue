@@ -137,10 +137,13 @@ function revertAll(attr, label) {
 
       <div class="c-form-title">信息设置</div>
       <g-warning content="信息设置填写必读" type="icon" />
-      <div>
-        一、用户可自定义信息内容发送 ; 二、可添加模板字符（服务端将根据模板解析适配内容）, 以下示例为模板字段 : 1、
-        {service} ，将会解析匹配的 服务名称 2、 {level} ，将会解析匹配的 消息等级 3、 {message} ，将会解析匹配的
-        消息内容 4、 {date} ，将会解析匹配的 发送时间
+      <div class="cl-65 fs-14">
+        <div>一、用户可自定义信息内容发送 ;</div>
+        <div>
+          二、可添加模板字符（服务端将根据模板解析适配内容）, 以下示例为模板字段 : 1、 {service} ，将会解析匹配的
+          服务名称 2、 {level} ，将会解析匹配的 消息等级 3、 {message} ，将会解析匹配的 消息内容 4、 {date}
+          ，将会解析匹配的 发送时间
+        </div>
       </div>
 
       <el-form-item label="接收人信箱" prop="receiveUser">

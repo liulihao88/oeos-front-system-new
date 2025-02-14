@@ -42,7 +42,7 @@ const keepDaysChange = () => {
 <template>
   <div>
     <div>
-      <span>设置审计日志保留天数(最短默认 180 天, 设置为 0 表示永久保存):</span>
+      <span class="mr2">设置审计日志保留天数(最短默认 180 天, 设置为 0 表示永久保存):</span>
       <el-input-number v-model="form.keepDays" :min="0" :disabled="!form.enable" @blur="keepDaysChange" />
     </div>
 
@@ -50,7 +50,7 @@ const keepDaysChange = () => {
       <g-switch v-model="form.enable" active-text="同意开启如下审计功能" />
     </div>
 
-    <div>
+    <div class="c-new-box mb2">
       <div>1、 系统用户登录及退出的日志审计。</div>
       <div>2、 系统数据的备份及恢复的日志审计。</div>
       <div>3、 桶的创建、修改、删除、配置的日志审计。</div>
