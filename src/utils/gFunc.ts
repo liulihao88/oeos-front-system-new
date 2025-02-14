@@ -39,6 +39,14 @@ export function gDownloadAll(id) {
   window.location.href = _href
 }
 
+export function gDownloadUrl(url) {
+  let baseUrl = import.meta.env.DEV ? settings.url : window.origin
+
+  let downloadUrl =
+    baseUrl + url + (url.indexOf('?') === -1 ? '?' : '&') + `Authorization=${getStorage('system-token')}`
+  window.location.href = downloadUrl
+}
+
 export function jump(path) {
   return router.push(path)
 }

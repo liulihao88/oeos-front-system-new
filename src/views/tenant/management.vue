@@ -70,15 +70,27 @@ const columns = [
     key: 'operation',
     label: '操作',
     maxBtns: 5,
-    width: 200,
+    width: 210,
     btns: [
       {
         content: '激活',
         handler: activeRow,
+        comp: 'o-icon',
+        attrs: {
+          name: 'active',
+          type: 'svg',
+          content: '激活',
+        },
       },
       {
         content: '停服',
         handler: deactiveRow,
+        comp: 'o-icon',
+        attrs: {
+          name: 'stop',
+          type: 'svg',
+          content: '停服',
+        },
       },
       {
         content: '删除',
@@ -93,6 +105,12 @@ const columns = [
       },
       {
         content: '跳转',
+        comp: 'o-icon',
+        attrs: {
+          name: 'jump',
+          type: 'svg',
+          content: '跳转',
+        },
       },
     ],
   },
@@ -369,14 +387,17 @@ const spaceContent = computed(() => {
             :columns="columns"
             :data="data"
             :showPage="false"
+            :showIndex="false"
             height="100%"
             highlight-current-row
             @current-change="handleCurrentChange"
           >
             <template #status="{ value, row }">
-              <el-tag v-if="value === 'InService'">{{ TENANT_STATUS[value] }}</el-tag>
-              <el-tag v-else-if="value === 'Issue'" type="danger">{{ TENANT_STATUS[value] }}</el-tag>
-              <el-tag v-else type="info">{{ TENANT_STATUS[value] }}</el-tag>
+              <div class="w-95%">
+                <el-tag v-if="value === 'InService'">{{ TENANT_STATUS[value] }}</el-tag>
+                <el-tag v-else-if="value === 'Issue'" type="danger">{{ TENANT_STATUS[value] }}</el-tag>
+                <el-tag v-else type="info">{{ TENANT_STATUS[value] }}</el-tag>
+              </div>
             </template>
           </o-table>
         </div>
@@ -498,7 +519,7 @@ const spaceContent = computed(() => {
             <el-form-item label="自动解冻" prop="enableAutoRestore">
               <div class="f-st-tp">
                 <el-switch v-model="form.enableAutoRestore" :disabled="outOfServiceDisabled" />
-                <g-warning type="icon" content="读取对象时自动触发对象解冻任务" />
+                <o-warning type="icon" style="padding: 0; padding-left: 8px" content="读取对象时自动触发对象解冻任务" />
               </div>
             </el-form-item>
           </el-form>

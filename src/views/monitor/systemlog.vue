@@ -73,6 +73,7 @@ const columns = [
           type: 'svg',
           content: '下载',
         },
+        handler: downloadRow,
       },
       {
         content: '删除',
@@ -125,6 +126,11 @@ const collectDisabled = computed(() => {
   return false
 })
 
+function downloadRow(row) {
+  let url = `/v1/admin/sys/log/${row.id}/download`
+  proxy.gDownloadUrl(url)
+}
+
 onMounted(() => {
   timer.value = setInterval(() => {
     init()
@@ -174,11 +180,17 @@ onUnmounted(() => {
       <template #collapseFile="{ row }">
         <div>
           <span>服务:</span>
-          <span>{{ row.condition.services.join(',') }}</span>
-        </div>
-        <div>
+          <span class="mr">
+            <el-tag class="mr">
+              {{ row.condition.services.join(',') }}
+            </el-tag>
+          </span>
           <span>节点:</span>
-          <span>{{ row.condition.nodes.join(',') }}</span>
+          <span>
+            <el-tag>
+              {{ row.condition.nodes.join(',') }}
+            </el-tag>
+          </span>
         </div>
         <div>
           <span>起止时间:</span>

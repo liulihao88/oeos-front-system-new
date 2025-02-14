@@ -181,7 +181,7 @@ export default [
         meta: {
           icon: BucketListSvg,
           title: '租户管理',
-          showParent: true,
+          showParent: !isDev,
         },
       },
     ],
@@ -204,7 +204,7 @@ export default [
         meta: {
           icon: BucketListSvg,
           title: '内置命令',
-          showParent: true,
+          showParent: !isDev,
         },
       },
     ],
