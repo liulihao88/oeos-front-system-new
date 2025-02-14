@@ -29,6 +29,7 @@ const isEdit = ref(false)
 const commonOptions: any = ref([])
 const details = ref({})
 const globalSetting = ref()
+const weekValue = ref([])
 
 async function init() {
   let res = await scheduleType()
@@ -40,6 +41,7 @@ async function init() {
 init()
 const open = (taskObj = '') => {
   form.value = proxy.clone(originForm)
+  weekValue.value = []
   if (taskObj) {
     form.value.taskName = taskObj.taskName
     form.value.commandID = taskObj.commandID
@@ -57,7 +59,7 @@ const open = (taskObj = '') => {
 function transObjToArr() {
   let res = Object.entries(form.value)
     .filter(([key, value]) => {
-      return key !== 'commandID' && key !== 'taskName'
+      return key !== 'commandID' && key !== 'taskName' && value
     })
     .map(([key, value]) => {
       return `${key} ${value}`
@@ -75,14 +77,15 @@ const timeChange = (value) => {
   }
 }
 
-const globalSettingChange = (value) => {
+const updateGlobalSetting = () => {
   Object.keys(timeMap).forEach((v) => {
-    form.value[v] = value
+    if (weekValue.value.length === 0 || weekValue.value.some((val) => val === v)) {
+      form.value[v] = globalSetting.value
+    }
   })
 }
 
 const confirm = async () => {
-  transObjToArr()
   let daytimes = transObjToArr()
   if (proxy.isEmpty(daytimes)) {
     return proxy.$toast('执行时间必选', 'e')
@@ -157,7 +160,15 @@ defineExpose({
 
         <div class="c-form-title">执行时间</div>
         <el-form-item v-if="!isEdit" label="统一设置" prop="">
-          <el-time-picker v-model="globalSetting" value-format="HH:mm:ss" @change="globalSettingChange" />
+          <div>
+            <el-time-picker v-model="globalSetting" value-format="HH:mm:ss" />
+            <el-button type="primary" class="ml" @click="updateGlobalSetting">更新</el-button>
+            <o-checkbox
+              v-model="weekValue"
+              multiple
+              :options="Object.entries(timeMap).map(([value, label]) => ({ value, label }))"
+            />
+          </div>
         </el-form-item>
         <template v-for="(key, value, index) in timeMap" :key="index">
           <el-form-item :label="key" :prop="value">
