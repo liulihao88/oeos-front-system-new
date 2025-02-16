@@ -15,7 +15,7 @@ function countUrlFn(url) {
       _url += '/' + item
     }
   })
-  let windowOrigin = proxy.$dev ? globalSettings.url : window.origin
+  let windowOrigin = import.meta.env.DEV ? globalSettings.url : window.origin
   let originUrl = windowOrigin + '/monitor' + _url
   return originUrl
 }

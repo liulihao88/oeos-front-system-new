@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref, getCurrentInstance } from 'vue'
 const { proxy } = getCurrentInstance()
+console.log(import.meta)
+console.log(import.meta.env)
 </script>
 
 <template>
