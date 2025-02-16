@@ -64,13 +64,14 @@ const columns = [
   {
     label: '状态',
     prop: 'status',
+    width: 80,
     useSlot: true,
   },
   {
     key: 'operation',
     label: '操作',
     maxBtns: 5,
-    width: 210,
+    width: 140,
     btns: [
       {
         content: '激活',
@@ -79,6 +80,10 @@ const columns = [
         attrs: {
           name: 'active',
           type: 'svg',
+          style: {
+            marginLeft: '6px',
+            marginRight: '6px',
+          },
           content: '激活',
         },
       },
@@ -90,6 +95,10 @@ const columns = [
           name: 'stop',
           type: 'svg',
           content: '停服',
+          style: {
+            marginLeft: '6px',
+            marginRight: '6px',
+          },
         },
       },
       {
@@ -100,6 +109,10 @@ const columns = [
           name: 'delete',
           type: 'svg',
           content: '删除',
+          style: {
+            marginLeft: '6px',
+            marginRight: '6px',
+          },
         },
         reConfirm: !proxy.$dev,
       },
@@ -111,6 +124,10 @@ const columns = [
           name: 'jump',
           type: 'svg',
           content: '跳转',
+          style: {
+            marginLeft: '6px',
+            marginRight: '6px',
+          },
         },
       },
     ],
@@ -388,11 +405,13 @@ const spaceContent = computed(() => {
     <el-row :gutter="16" class="h-100%">
       <el-col :span="6" class="h-100%">
         <div class="left c-box h-100%">
-          <div class="left-top f-bt-ct mb2">
+          <div class="left-top f-bt-ct mb2 o-a">
             <o-input v-model="searchValue" v-throttle.300="searchHandler" title="租户名" width="200" class="mr" />
             <div class="f">
-              <el-button icon="el-icon-refresh" @click="refresh">刷新</el-button>
-              <el-button icon="el-icon-plus" type="primary" @click="newAdd">新建</el-button>
+              <el-button @click="refresh">刷新</el-button>
+              <!-- icon="el-icon-refresh" -->
+              <el-button type="primary" @click="newAdd">新建</el-button>
+              <!-- icon="el-icon-plus" -->
             </div>
           </div>
 
@@ -401,7 +420,6 @@ const spaceContent = computed(() => {
             :columns="columns"
             :data="data"
             :showPage="false"
-            :showIndex="false"
             height="100%"
             highlight-current-row
             @current-change="handleCurrentChange"
