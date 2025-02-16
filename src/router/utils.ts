@@ -199,19 +199,19 @@ function initRouter() {
 
 function mergeMenus(baseMenus, remoteMenus) {
   const mergedMenus = []
-
   baseMenus.forEach((baseItem) => {
-    const remoteItem = remoteMenus.find((item) => item.id === baseItem.id)
+    let remoteItem = remoteMenus.find((item) => item.id === baseItem.id)
     if (remoteItem) {
       // 如果在remoteMenus中找到了匹配的id，则合并这两个菜单项
       if (remoteItem.visable) {
-        const mergedItem = {
+        let mergedItem = {
           ...baseItem,
           meta: {
             ...baseItem.meta,
             title: remoteItem.title ?? baseItem.title,
           },
           path: remoteItem.link || baseItem.path,
+          tip: remoteItem.tip,
           children: mergeSubMenus(baseItem.children || [], remoteItem.submenu),
         }
         mergedMenus.push(mergedItem)
@@ -242,6 +242,7 @@ function mergeSubMenus(baseChildren, remoteSubMenus) {
             children: mergeSubMenus(baseChild.meta.children || [], remoteChild.submenu || []),
           },
           path: remoteChild.link || baseChild.path,
+          tip: remoteChild.tip,
         }
 
         mergedChildren.push(mergedChild)

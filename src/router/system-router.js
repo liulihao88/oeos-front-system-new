@@ -101,9 +101,14 @@ export default [
         },
       },
       {
-        title: '全闪存储列表',
         id: 'SM014',
-        showLink: false,
+        // path必须写，必须以 / 开头，推荐格式 / 后跟随意单词，不同的外链path不要重复哦
+        path: '/qscclb',
+        // 外链地址写在name属性里
+        meta: {
+          icon: LglbSvg,
+          title: '全闪存储列表',
+        },
       },
     ],
   },

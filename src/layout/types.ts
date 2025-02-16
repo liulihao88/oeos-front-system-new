@@ -76,6 +76,7 @@ export type menuType = {
   }
   showTooltip?: boolean
   parentId?: number
+  tip?: string
   pathList?: number[]
   redirect?: string
 }
