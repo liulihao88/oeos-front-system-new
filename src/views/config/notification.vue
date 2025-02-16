@@ -16,7 +16,7 @@ const navOptions = ref([
 </script>
 
 <template>
-  <div>
+  <div class="">
     <o-tabs v-model="navValue" :options="navOptions" />
     <div v-if="navValue === 'log'">
       <LogNotification />

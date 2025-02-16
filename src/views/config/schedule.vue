@@ -32,7 +32,7 @@ const columns = [
   {
     key: 'operation',
     label: '操作',
-    width: 120,
+    width: 130,
     btns: [
       {
         content: '编辑',
