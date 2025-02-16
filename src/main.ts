@@ -88,7 +88,7 @@ Object.keys(globalData).forEach((v) => {
 
 app.config.globalProperties.$echarts = echarts
 let $dev = import.meta.env.MODE === 'development'
-app.config.globalProperties.$dev = utils.getStorage('tenant-$dev') ?? $dev
+app.config.globalProperties.$dev = utils.getStorage('system-$dev') ?? $dev
 app.config.globalProperties.$test = location.hostname.startsWith('10.0.11.33') || location.hostname === 'localhost'
 // app.config.globalProperties.$dev = false
 app.config.globalProperties.$mitt = mitt()

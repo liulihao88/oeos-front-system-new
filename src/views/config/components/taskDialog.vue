@@ -158,7 +158,12 @@ defineExpose({
           <o-radio v-model="form.commandID" :options="commonOptions" label="name" />
         </el-form-item>
 
-        <div class="c-form-title">执行时间</div>
+        <div class="c-form-title f-st-ct">
+          <div>执行时间</div>
+          <span class="ml">
+            <g-warning type="icon" content="新建任务成功后, 在日程表中点击该任务可再次编辑" />
+          </span>
+        </div>
         <el-form-item v-if="!isEdit" label="统一设置" prop="">
           <div>
             <el-time-picker v-model="globalSetting" value-format="HH:mm:ss" />
@@ -174,9 +179,7 @@ defineExpose({
           <el-form-item :label="key" :prop="value">
             <el-time-picker v-model="form[value]" value-format="HH:mm:ss" @change="timeChange(value, index)" />
           </el-form-item>
-          {{ v }} {{ i }}
         </template>
-        <g-warning type="icon" content="新建任务成功后, 在日程表中点击该任务可再次编辑" />
       </el-form>
 
       <template v-if="isEdit" #footer>

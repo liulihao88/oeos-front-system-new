@@ -233,9 +233,11 @@ const operationHandler = async (row, type) => {
             <span class="label">端口</span>
             <span class="value">{{ v.mapiPort }}</span>
           </div>
-          <div>
+          <div class="f w-100%">
             <span class="label">描述</span>
-            <span class="value">{{ v.description }}</span>
+            <span class="value">
+              <o-tooltip :content="v.description" />
+            </span>
           </div>
         </div>
       </div>
@@ -286,10 +288,12 @@ const operationHandler = async (row, type) => {
       .label {
         display: inline-block;
         width: 100px;
+        min-width: 100px;
         color: #989ca5;
       }
 
       .value {
+        width: calc(100% - 100px);
         color: #43404f;
       }
     }
