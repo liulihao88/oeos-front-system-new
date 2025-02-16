@@ -100,6 +100,11 @@ export default [
           title: '蓝光列表',
         },
       },
+      {
+        title: '全闪存储列表',
+        id: 'SM014',
+        showLink: false,
+      },
     ],
   },
   {

@@ -105,6 +105,7 @@ const columns = [
       },
       {
         content: '跳转',
+        handler: jumpRow,
         comp: 'o-icon',
         attrs: {
           name: 'jump',
@@ -340,6 +341,19 @@ const searchHandler = () => {
     return item.name.includes(searchValue.value)
   })
   restoreHighLight()
+}
+
+function jumpRow(item) {
+  let origin = location.origin
+  let tenantUrl = ''
+  if (proxy.$dev) {
+    let deletePortOrigin = origin.replace(/:\d+$/, ':')
+    tenantUrl = deletePortOrigin + '8848/tenant/login?tenantValue=' + item.value
+  } else {
+    let deletePortOrigin = origin.replace(/:\d+$/, ':')
+    tenantUrl = deletePortOrigin + '8008/tenant/login?tenantValue=' + item.value
+  }
+  window.open(tenantUrl)
 }
 
 async function restoreHighLight() {
