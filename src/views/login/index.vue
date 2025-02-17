@@ -55,7 +55,7 @@ init()
 const logoInit = async () => {
   storeLogoSettings.changeSettings(globalLogoSettings.nativeLogo.favariteIcon)
   let res = await getInitLogo()
-  proxy.setStorage('tenant-logo-settings', res)
+  proxy.setStorage('system-logo-settings', res)
   storeLogoSettings.changeSettings(res)
 }
 logoInit()
@@ -93,9 +93,9 @@ const _login = async () => {
 
   Promise.allSettled(allSettledArr).then((res) => {
     if (res[0].status === 'fulfilled') {
-      proxy.setStorage('tenant-time-rule', res[0].value)
+      proxy.setStorage('system-time-rule', res[0].value)
     } else {
-      proxy.setStorage('tenant-time-rule', {
+      proxy.setStorage('system-time-rule', {
         date: 'YYYY-MM-DD',
         time: 'HH:mm:ss',
         datetime: 'YYYY-MM-DD HH:mm:ss',

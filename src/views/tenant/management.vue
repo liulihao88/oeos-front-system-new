@@ -217,6 +217,7 @@ const saveModify = async () => {
     await modifyGateway(selectedRows.value.value, gatewayForm)
   }
   proxy.$toast('修改成功')
+  init()
 }
 const save = async () => {
   await proxy.validForm(formRef)
@@ -233,6 +234,7 @@ const save = async () => {
   copyForm.superUser = superUser.value
   await saveTenant(copyForm)
   proxy.$toast('保存成功')
+  init()
 }
 
 const handleCurrentChange = async (currentRow, oldCurrentRow) => {
@@ -315,7 +317,6 @@ async function init() {
     detailsResp.push(getTenantStatus(data.value[i].value))
   }
   let res2 = await Promise.all(detailsResp)
-  console.log(`89 res2`, res2)
   data.value = data.value.map((item, index) => {
     return {
       ...item,
@@ -438,7 +439,7 @@ const spaceContent = computed(() => {
         <div class="main c-box h-100%">
           <div class="main-header">
             <o-title :title="title">
-              <el-button type="primary" class="ml2" icon="el-icon-save" @click="save">保存</el-button>
+              <el-button type="primary" class="ml2" @click="save">保存</el-button>
             </o-title>
           </div>
           <el-form ref="formRef" :model="form" :rules="rules" label-width="auto">

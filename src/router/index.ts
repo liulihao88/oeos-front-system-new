@@ -106,10 +106,10 @@ router.beforeEach((to: ToRouteType, _from, next) => {
     to.matched.some((item) => {
       if (!item.meta.title) return ''
       const Title =
-        getStorage('tenant-logo-settings')?.tenantManagementTitle ?? settings.nativeLogo?.tenantManagementTitle
+        getStorage('system-logo-settings')?.tenantManagementTitle ?? settings.nativeLogo?.tenantManagementTitle
       if (Title) document.title = `${item.meta.title} | ${Title}`
       else document.title = item.meta.title as string
-      let icon = getStorage('tenant-logo-settings')?.favariteIcon ?? settings.nativeLogo?.favariteIcon
+      let icon = getStorage('system-logo-settings')?.favariteIcon ?? settings.nativeLogo?.favariteIcon
       setFavIcon(icon)
     })
   }

@@ -13,7 +13,7 @@ const useLogoSettings = defineStore(
   'logoSettings',
   {
     state: () => ({
-      nativeLogo: getStorage('tenant-logo-settings') ?? {},
+      nativeLogo: getStorage('system-logo-settings') ?? {},
     }),
 
     actions: {

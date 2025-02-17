@@ -64,7 +64,7 @@ export function formatTimeByRule(time, timeStr = 'datetime') {
   if (isEmpty(time)) {
     return '-'
   }
-  const rule = getStorage('tenant-time-rule') || {}
+  const rule = getStorage('system-time-rule') || {}
   const ruleValue = rule[timeStr]
   if (!ruleValue) {
     return time
