@@ -1,3 +1,4 @@
+import { getCurrentInstance, computed } from 'vue'
 const Layout = () => import('@/layout/index.vue')
 import DarkSvg from '@/assets/svg/dark.svg'
 import DaySvg from '@/assets/svg/day.svg'
@@ -39,7 +40,14 @@ import GjpzSvg from '@/assets/svg/system/gjpz.svg'
 import SjszSvg from '@/assets/svg/system/sjsz.svg'
 import HbpzSvg from '@/assets/svg/system/hbpz.svg'
 
-const isDev = process.env.NODE_ENV === 'development'
+export function use$dev() {
+  const instance = getCurrentInstance()
+  if (instance) {
+    return instance.appContext.config.globalProperties.$dev // 访问全局属性
+  }
+  return process.env.NODE_ENV === 'development'
+}
+
 export default [
   {
     id: 'SM000',
@@ -179,7 +187,7 @@ export default [
     path: '/tenant',
     component: Layout,
     meta: {
-      // icon: XtzhSvg,
+      icon: groupManagementSvg,
       title: '系统租户',
     },
     children: [
@@ -189,9 +197,9 @@ export default [
         name: 'TenantManagement',
         component: 'tenant/management',
         meta: {
-          icon: BucketListSvg,
+          icon: userManagemenetSvg,
           title: '租户管理',
-          showParent: !isDev,
+          showParent: !use$dev(),
         },
       },
     ],
@@ -212,9 +220,9 @@ export default [
         name: 'FeatureCommand',
         component: 'feature/command',
         meta: {
-          icon: BucketListSvg,
+          icon: innerCommandSvg,
           title: '内置命令',
-          showParent: !isDev,
+          showParent: !use$dev(),
         },
       },
     ],
@@ -362,7 +370,7 @@ export default [
     component: Layout,
     meta: {
       icon: testSvg,
-      showLink: isDev,
+      showLink: use$dev(),
       title: '测试页',
       rank: 0,
     },
@@ -382,7 +390,7 @@ export default [
     path: '/test2',
     component: Layout,
     meta: {
-      showLink: isDev,
+      showLink: use$dev(),
       icon: testSvg,
       title: '测试页2顶部',
       rank: 0,
@@ -412,7 +420,7 @@ export default [
     path: '/test3',
     component: Layout,
     meta: {
-      showLink: isDev,
+      showLink: use$dev(),
       icon: testSvg,
       title: '测试页2顶部',
       rank: 0,
@@ -433,7 +441,7 @@ export default [
     path: '/test4',
     component: Layout,
     meta: {
-      showLink: isDev,
+      showLink: use$dev(),
       icon: testSvg,
       title: '测试页2顶部',
       rank: 0,
@@ -454,7 +462,7 @@ export default [
     path: '/test5',
     component: Layout,
     meta: {
-      showLink: isDev,
+      showLink: use$dev(),
       icon: testSvg,
       title: '测试页2顶部',
       rank: 0,
@@ -475,7 +483,7 @@ export default [
     path: '/test6',
     component: Layout,
     meta: {
-      showLink: isDev,
+      showLink: use$dev(),
       icon: testSvg,
       title: '测试页2顶部',
       rank: 0,
