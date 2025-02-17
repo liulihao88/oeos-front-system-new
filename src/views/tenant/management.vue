@@ -217,6 +217,7 @@ const saveModify = async () => {
     await modifyGateway(selectedRows.value.value, gatewayForm)
   }
   proxy.$toast('修改成功')
+  proxy.setStorage('system-tenant-name', form.value.aliasName)
   init()
 }
 const save = async () => {
@@ -234,6 +235,7 @@ const save = async () => {
   copyForm.superUser = superUser.value
   await saveTenant(copyForm)
   proxy.$toast('保存成功')
+  proxy.setStorage('system-tenant-name', form.value.aliasName)
   init()
 }
 
@@ -242,7 +244,7 @@ const handleCurrentChange = async (currentRow, oldCurrentRow) => {
     selectRow.value = currentRow
     isEdit.value = true
     selectedRows.value = currentRow
-    proxy.setStorage('system-tenant-id', currentRow.value)
+    proxy.setStorage('system-tenant-name', currentRow.name)
     let id = currentRow.value
     let res = await Promise.all([
       getTenantBasic(id),
@@ -294,14 +296,14 @@ const reset = () => {
 
 const _handleRowClick = () => {
   let clickIdx = 0
-  let localTenantId = proxy.getStorage('system-tenant-id') || ''
+  let localTenantName = proxy.getStorage('system-tenant-name') || ''
   if (data.value.length === 0) {
     reset()
     return
   }
-  if (localTenantId) {
+  if (localTenantName) {
     let taskNameIdx = data.value.findIndex((item) => {
-      return item.name === localTenantId
+      return item.name === localTenantName
     })
     clickIdx = taskNameIdx === -1 ? 0 : taskNameIdx
   }
@@ -344,7 +346,8 @@ async function deactiveRow(row) {
 }
 async function deleteRow(row) {
   await deleteTenant(row.value)
-  proxy.$toast('操作成功')
+  proxy.$toast('删除成功')
+  init()
 }
 const accessibleChange = () => {
   form.value.defaultStorage = ''
