@@ -155,6 +155,7 @@ defineExpose({
           <o-select
             v-model="form.type"
             :options="options"
+            :disabled="isEdit"
             :customLabel="(obj) => `${obj.name}(${obj.value})`"
             width="100%"
           />
@@ -169,7 +170,7 @@ defineExpose({
         <template v-if="form.type !== 'OceanStorage'">
           <el-form-item v-if="form.type === 'S3CompatibleStorage'" label="配额" prop="quota">
             <div class="f-st-ct">
-              <el-input-number v-model="form.quota" :min="0" />
+              <el-input-number v-model="form.quota" :min="0" :precision="2" />
               <o-radio
                 v-model="form.quotaUnit"
                 :options="proxy.QUOTA_UNIT"
