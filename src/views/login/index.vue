@@ -162,6 +162,7 @@ onBeforeUnmount(() => {
               <el-form-item prop="username">
                 <el-input
                   v-model.trim="ruleForm.username"
+                  v-focus
                   clearable
                   placeholder="账号"
                   :prefix-icon="useRenderIcon(User)"

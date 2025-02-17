@@ -75,7 +75,7 @@ defineExpose({
         </el-form-item>
       </el-form>
 
-      <g-warning type="icon" content="密码规则: 8-40位字符组合、特殊字符可选" />
+      <o-warning type="icon" content="密码规则: 8-40位字符组合、特殊字符可选" />
     </o-dialog>
   </div>
 </template>
