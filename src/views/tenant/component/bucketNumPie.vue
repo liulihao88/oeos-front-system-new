@@ -40,12 +40,18 @@ const initOptions = {
       type: 'pie',
       startAngle: 180,
       endAngle: 360,
-      radius: '70%',
+      radius: '90%',
+      avoidLabelOverlap: false, // 防止标签重叠
       label: {
+        alignTo: 'edge', // 对齐到边缘
+        margin: 10, // 设置外边距
         formatter: formatter,
+        position: 'outside', // 标签位置在外部
         backgroundColor: '#F6F8FC',
         borderColor: '#8C8D8E',
         borderRadius: 4,
+        // opacity: 0.9,
+        borderWidth: 1,
         textStyle: {
           fontSize: 12, // 更改标题字体大小为 20px
           color: '#e4393c',
