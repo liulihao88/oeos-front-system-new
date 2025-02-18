@@ -367,7 +367,7 @@ const searchHandler = () => {
 function jumpRow(item) {
   let origin = location.origin
   let tenantUrl = ''
-  if (proxy.$dev) {
+  if (import.meta.env.DEV) {
     let deletePortOrigin = origin.replace(/:\d+$/, ':')
     tenantUrl = deletePortOrigin + '8848/tenant/login?tenantValue=' + item.value
   } else {
