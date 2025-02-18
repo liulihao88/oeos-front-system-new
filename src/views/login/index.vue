@@ -167,6 +167,15 @@ onBeforeUnmount(() => {
                   placeholder="账号"
                   :prefix-icon="useRenderIcon(User)"
                 />
+                <el-button
+                  v-if="proxy.$test"
+                  type="primary"
+                  size="mini"
+                  class="po-a r--100 t-4"
+                  @click="ruleForm.username = 'admin'"
+                >
+                  填充账号
+                </el-button>
               </el-form-item>
             </Motion>
 
@@ -181,6 +190,15 @@ onBeforeUnmount(() => {
                   autocomplete="new-password"
                   :prefix-icon="useRenderIcon(Lock)"
                 />
+                <el-button
+                  v-if="proxy.$test"
+                  type="primary"
+                  size="mini"
+                  class="po-a r--100 t-4"
+                  @click="ruleForm.password = 'adminadmin'"
+                >
+                  填充密码
+                </el-button>
               </el-form-item>
             </Motion>
 

@@ -3,6 +3,8 @@
 set -o nounset
 set -o errexit
 
+REMOTE_DIR="/opt/newfront/sys/sys"
+
 if [[ "$#" != 0 && "$1" == "-k" ]]; then
     echo
 else
@@ -12,8 +14,8 @@ fi
 for i in {33..35};do
 # for i in 33;do
    ssh  root@10.0.11."$i" <<EOF
-   rm -rf /opt/newfront/sys/sys
+   rm -rf $REMOTE_DIR
 EOF
-   scp -r ./sys/* root@10.0.11."$i":/opt/newfront/sys/sys
+   scp -r ./sys root@10.0.11."$i":$REMOTE_DIR
    ssh root@10.0.11."$i" systemctl restart nginx
 done
