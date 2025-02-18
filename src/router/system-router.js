@@ -26,7 +26,21 @@ import testSvg from '@/assets/svg/menu/test.svg'
 
 import XtglSvg from '@/assets/svg/system/xtgl.svg'
 import JcjgSvg from '@/assets/svg/system/jcjg.svg'
-import CcglSvg from '@/assets/svg/system/ccgl.svg'
+import CcManage from '@/assets/svg/system/ccManage.svg'
+
+import ccgl from '@/assets/svg/system/ccgl.svg'
+import hcgl from '@/assets/svg/system/hcgl.svg'
+import ccc from '@/assets/svg/system/ccc.svg'
+import cpz from '@/assets/svg/system/cpz.svg'
+import zjpz from '@/assets/svg/system/zjpz.svg'
+
+import fwrz from '@/assets/svg/system/fwrz.svg'
+import xtsj from '@/assets/svg/system/xtsj.svg'
+import sjrz from '@/assets/svg/system/sjrz.svg'
+
+import rlxkz from '@/assets/svg/system/rlxkz.svg'
+import xtshengji from '@/assets/svg/system/xtshengji.svg'
+
 // import XtzhSvg from '@/assets/svg/system/xtzh.svg'
 import FwgnSvg from '@/assets/svg/system/fwgn.svg'
 import XtjkSvg from '@/assets/svg/system/xtjk.svg'
@@ -34,7 +48,8 @@ import XtpzSvg from '@/assets/svg/system/xtpz.svg'
 import XtwhSvg from '@/assets/svg/system/xtwh.svg'
 import JdlbSvg from '@/assets/svg/system/jdlb.svg'
 import FwlbSvg from '@/assets/svg/system/fwlb.svg'
-import LglbSvg from '@/assets/svg/system/qscclb.svg'
+import LglbSvg from '@/assets/svg/system/lglb.svg'
+import QscclbSvg from '@/assets/svg/system/qscclb.svg'
 import RwpzSvg from '@/assets/svg/system/rwpz.svg'
 import GjpzSvg from '@/assets/svg/system/gjpz.svg'
 import SjszSvg from '@/assets/svg/system/sjsz.svg'
@@ -114,7 +129,7 @@ export default [
         path: '/qscclb',
         // 外链地址写在name属性里
         meta: {
-          icon: LglbSvg,
+          icon: QscclbSvg,
           title: '全闪存储列表',
         },
       },
@@ -125,7 +140,7 @@ export default [
     path: '/storage',
     component: Layout,
     meta: {
-      icon: CcglSvg,
+      icon: CcManage,
       title: '存储管理',
     },
     children: [
@@ -135,7 +150,7 @@ export default [
         name: 'StorageOverview',
         component: 'storage/overview',
         meta: {
-          icon: BucketListSvg,
+          icon: ccgl,
           title: '存储概览',
         },
       },
@@ -145,7 +160,7 @@ export default [
         name: 'StorageCache',
         component: 'storage/cache',
         meta: {
-          icon: BucketListSvg,
+          icon: hcgl,
           title: '缓存概览',
         },
       },
@@ -155,7 +170,7 @@ export default [
         name: 'StorageClass',
         component: 'storage/class',
         meta: {
-          icon: BucketListSvg,
+          icon: ccc,
           title: '存储层',
         },
       },
@@ -165,7 +180,7 @@ export default [
         name: 'StoragePool',
         component: 'storage/pool',
         meta: {
-          icon: BucketListSvg,
+          icon: cpz,
           title: '池配置',
         },
       },
@@ -175,7 +190,7 @@ export default [
         name: 'StorageComponent',
         component: 'storage/component',
         meta: {
-          icon: BucketListSvg,
+          icon: zjpz,
           title: '组件配置',
         },
       },
@@ -199,7 +214,8 @@ export default [
         meta: {
           icon: userManagemenetSvg,
           title: '租户管理',
-          showParent: !use$dev(),
+          showParent: true,
+          // showParent: !use$dev(),
         },
       },
     ],
@@ -222,7 +238,8 @@ export default [
         meta: {
           icon: innerCommandSvg,
           title: '内置命令',
-          showParent: !use$dev(),
+          showParent: true,
+          // showParent: !use$dev(),
         },
       },
     ],
@@ -243,7 +260,7 @@ export default [
         name: 'MonitorSystemlog',
         component: 'monitor/systemlog',
         meta: {
-          icon: BucketListSvg,
+          icon: fwrz,
           title: '服务日志',
         },
       },
@@ -253,7 +270,7 @@ export default [
         name: 'MonitorEvent',
         component: 'monitor/event',
         meta: {
-          icon: BucketListSvg,
+          icon: xtsj,
           title: '系统事件',
         },
       },
@@ -263,7 +280,7 @@ export default [
         name: 'MonitorAudit',
         component: 'monitor/audit',
         meta: {
-          icon: BucketListSvg,
+          icon: sjrz,
           title: '审计日志',
         },
       },
@@ -348,7 +365,7 @@ export default [
         name: 'MaintenanceLicense',
         component: 'maintenance/license',
         meta: {
-          icon: BucketListSvg,
+          icon: rlxkz,
           title: '容量许可证',
         },
       },
@@ -358,7 +375,7 @@ export default [
         name: 'MaintenanceUpgrade',
         component: 'maintenance/upgrade',
         meta: {
-          icon: BucketListSvg,
+          icon: xtshengji,
           title: '系统升级',
         },
       },
